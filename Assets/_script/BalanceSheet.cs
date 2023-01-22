@@ -22,7 +22,7 @@ public struct Asset
 
     public void updateText()
     {
-        tmp_name.text = amount + "";
+        tmp_name.text = name + "";
         tmp_amount.text = amount + "";
     }
 
@@ -51,7 +51,7 @@ public struct Liability
 
     public void updateText()
     {
-        tmp_name.text = amount + "";
+        tmp_name.text = name + "";
         tmp_amount.text = amount+"";
     }
 
@@ -67,6 +67,7 @@ public class BalanceSheet : MonoBehaviour
     [SerializeField] GameObject balanceSheetObject,assetsPanel,liabilitiesPanel;
 
     public List<Asset> assets;
+    public List<Liability> liabilities;
     public GameObject assetHolder,liabilityHolder; // the text box prefab that contains 2 text meshes to display namew and amount
     [SerializeField] List<GameObject> aHolders, lHolders; //keep track of transform position
 
@@ -79,7 +80,6 @@ public class BalanceSheet : MonoBehaviour
         foreach(Asset asset in assets)
         {
             Transform last_a = aHolders[aHolders.Count - 1].transform;
-            Transform last_l = lHolders[aHolders.Count - 1].transform;
 
             float x = last_a.position.x;
             float y= last_a.position.y -50;
@@ -87,17 +87,42 @@ public class BalanceSheet : MonoBehaviour
             
             GameObject aHolder = Instantiate(assetHolder,new Vector3(x,y,z),Quaternion.identity,assetsPanel.transform);
 
-            x = last_l.position.x;
-            y = last_l.position.y - 50;
-            z = last_l.position.z;
-            GameObject lHolder = Instantiate(liabilityHolder, new Vector3(x, y, z), Quaternion.identity, assetsPanel.transform);
-
             asset.AssignTextMesh(aHolder.transform.GetChild(0).GetChild(0).GetComponent<TMP_Text>(), aHolder.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>());
             asset.updateText();
             aHolders.Add(aHolder);
         }
 
-        foreach(Asset a in assets) { networth += a.amount; }
+        foreach (Liability l in liabilities)
+        {
+            Transform last_l = lHolders[lHolders.Count - 1].transform;
+
+            float x = last_l.position.x;
+            float y = last_l.position.y - 50;
+            float z = last_l.position.z;
+            GameObject lHolder = Instantiate(liabilityHolder, new Vector3(x, y, z), Quaternion.identity, liabilitiesPanel.transform);
+
+            l.AssignTextMesh(lHolder.transform.GetChild(0).GetChild(0).GetComponent<TMP_Text>(), lHolder.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>());
+            l.updateText();
+            lHolders.Add(lHolder);
+        }
+
+        getNetWorth();
+    }
+
+    public double getNetWorth()
+    {
+        double nw = 0;
+        foreach(Asset a in assets)
+        {
+            nw += a.amount;
+        }
+        foreach(Liability l in liabilities)
+        {
+            nw -= l.amount;
+        }
+        networth = nw;
+        tmp_networth.text = nw + "";
+        return nw;
     }
 
     // Update is called once per frame
