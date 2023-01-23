@@ -4,20 +4,19 @@ using UnityEngine;
 using TMPro;
 
 [System.Serializable]
-
-public struct Asset 
+public class Asset 
 {
     public string name;
     public double amount;
     public TMP_Text tmp_name;
     public TMP_Text tmp_amount;
 
+    public bool sellable;
+
     public Asset(string n, double a)
     {
         name = n;
         amount = a; 
-        tmp_name = null;
-        tmp_amount = null;
     }
 
     public void updateText()
@@ -35,7 +34,7 @@ public struct Asset
 }
 
 [System.Serializable]
-public struct Liability
+public class Liability
 {
     public string name;
     public double amount;
@@ -45,8 +44,6 @@ public struct Liability
     {
         name = n;
         amount = a;
-        tmp_name = null;
-        tmp_amount = null;
     }
 
     public void updateText()
@@ -77,36 +74,67 @@ public class BalanceSheet : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        foreach(Asset asset in assets)
+        GenerateBalanceSheet();
+    }
+
+    public void GenerateBalanceSheet()
+    {
+        foreach (Asset asset in assets)
         {
-            Transform last_a = aHolders[aHolders.Count - 1].transform;
-
-            float x = last_a.position.x;
-            float y= last_a.position.y -50;
-            float z = last_a.position.z;
-            
-            GameObject aHolder = Instantiate(assetHolder,new Vector3(x,y,z),Quaternion.identity,assetsPanel.transform);
-
-            asset.AssignTextMesh(aHolder.transform.GetChild(0).GetChild(0).GetComponent<TMP_Text>(), aHolder.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>());
-            asset.updateText();
-            aHolders.Add(aHolder);
+            AddAsset(asset);
         }
 
         foreach (Liability l in liabilities)
         {
-            Transform last_l = lHolders[lHolders.Count - 1].transform;
-
-            float x = last_l.position.x;
-            float y = last_l.position.y - 50;
-            float z = last_l.position.z;
-            GameObject lHolder = Instantiate(liabilityHolder, new Vector3(x, y, z), Quaternion.identity, liabilitiesPanel.transform);
-
-            l.AssignTextMesh(lHolder.transform.GetChild(0).GetChild(0).GetComponent<TMP_Text>(), lHolder.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>());
-            l.updateText();
-            lHolders.Add(lHolder);
+            AddLiability(l);
         }
 
         getNetWorth();
+    }
+
+    public void AddAsset(Asset a)
+    {
+        Transform last_a = aHolders[aHolders.Count - 1].transform;
+
+        float x = last_a.position.x;
+        float y = last_a.position.y - 50;
+        float z = last_a.position.z;
+
+        GameObject aHolder = Instantiate(assetHolder, new Vector3(x, y, z), Quaternion.identity, assetsPanel.transform);
+
+        a.AssignTextMesh(aHolder.transform.GetChild(0).GetChild(0).GetComponent<TMP_Text>(), aHolder.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>());
+        a.updateText();
+
+        if(a.sellable == true)
+        {
+            aHolder.transform.GetChild(2).gameObject.SetActive(true);
+        }
+
+
+        aHolders.Add(aHolder);
+    }
+
+    public void AddLiability(Liability l)
+    {
+        Transform last_l = lHolders[lHolders.Count - 1].transform;
+
+        float x = last_l.position.x;
+        float y = last_l.position.y - 50;
+        float z = last_l.position.z;
+        GameObject lHolder = Instantiate(liabilityHolder, new Vector3(x, y, z), Quaternion.identity, liabilitiesPanel.transform);
+
+        l.AssignTextMesh(lHolder.transform.GetChild(0).GetChild(0).GetComponent<TMP_Text>(), lHolder.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>());
+        l.updateText();
+        lHolders.Add(lHolder);
+    }
+
+    //clear the UI
+    public void ClearBalanceSheet()
+    {
+        for(int i = aHolders.Count - 1; i > 0; i--)
+        {
+            Destroy(aHolders[i]);
+        }
     }
 
     public double getNetWorth()
