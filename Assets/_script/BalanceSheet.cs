@@ -96,8 +96,6 @@ public class BalanceSheet : MonoBehaviour
             aHolder.transform.GetChild(2).gameObject.SetActive(true); //sell button
             aHolder.transform.GetChild(2).GetComponent<Button>().onClick.AddListener(() => SellAsset(a));
         }
-
-
         aHolders.Add(aHolder);
     }
 
