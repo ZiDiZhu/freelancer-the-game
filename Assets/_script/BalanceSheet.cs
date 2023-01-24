@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 [System.Serializable]
@@ -74,22 +75,7 @@ public class BalanceSheet : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GenerateBalanceSheet();
-    }
-
-    public void GenerateBalanceSheet()
-    {
-        foreach (Asset asset in assets)
-        {
-            AddAsset(asset);
-        }
-
-        foreach (Liability l in liabilities)
-        {
-            AddLiability(l);
-        }
-
-        getNetWorth();
+        GenerateBalanceSheet(true,true);
     }
 
     public void AddAsset(Asset a)
@@ -107,11 +93,20 @@ public class BalanceSheet : MonoBehaviour
 
         if(a.sellable == true)
         {
-            aHolder.transform.GetChild(2).gameObject.SetActive(true);
+            aHolder.transform.GetChild(2).gameObject.SetActive(true); //sell button
+            aHolder.transform.GetChild(2).GetComponent<Button>().onClick.AddListener(() => SellAsset(a));
         }
 
 
         aHolders.Add(aHolder);
+    }
+
+    public void SellAsset(Asset a)
+    {
+        assets[0].amount += a.amount;//Warning: first item = wallet;
+        assets.Remove(a);
+        ClearBalanceSheet(true,false);
+        GenerateBalanceSheet(true,false);
     }
 
     public void AddLiability(Liability l)
@@ -129,12 +124,45 @@ public class BalanceSheet : MonoBehaviour
     }
 
     //clear the UI
-    public void ClearBalanceSheet()
+    public void ClearBalanceSheet(bool clearAssets,bool clearLiabilities)
     {
-        for(int i = aHolders.Count - 1; i > 0; i--)
+        if (clearAssets)
         {
-            Destroy(aHolders[i]);
+            for (int i = aHolders.Count - 1; i > 0; i--)
+            {
+                Destroy(aHolders[i]);
+                aHolders.Remove(aHolders[i]);
+                
+            }
         }
+        if (clearLiabilities)
+        {
+            for (int i = lHolders.Count - 1; i > 0; i--)
+            {
+                Destroy(lHolders[i]);
+            }
+        }
+    }
+
+    public void GenerateBalanceSheet(bool generateAssets, bool generateLiabilities)
+    {
+        if (generateAssets)
+        {
+            foreach (Asset asset in assets)
+            {
+                AddAsset(asset);
+            }
+        }
+
+        if (generateLiabilities)
+        {
+            foreach (Liability l in liabilities)
+            {
+                AddLiability(l);
+            }
+        }
+        
+        getNetWorth();
     }
 
     public double getNetWorth()
