@@ -35,12 +35,15 @@ public class GraphicShape : MonoBehaviour
         Debug.Log("Pressed button" + myShape.name);
         if (selectedShape == myShape)
         {
-            selectedShape = null;
             DeselectShape();
         }
-            
+
         else
+        {
             selectedShape = myShape;
+            selectedShape.GetComponent<Outline>().enabled = true;
+        }
+            
     }
 
     private void colorSwatchClicked(GameObject myColorSwatch)
@@ -53,6 +56,7 @@ public class GraphicShape : MonoBehaviour
 
     void DeselectShape()
     {
+        selectedShape.GetComponent<Outline>().enabled = false;
         selectedShape = null;
         EventSystem.current.SetSelectedGameObject(null);
     }
