@@ -72,9 +72,12 @@ public class BalanceSheet : MonoBehaviour
     public double networth;
     public TMP_Text tmp_networth;
 
+    
     // Start is called before the first frame update
     void Start()
     {
+        ClearPanels();
+        ClearBalanceSheet(true,true);
         GenerateBalanceSheet(true,true);
     }
 
@@ -99,6 +102,14 @@ public class BalanceSheet : MonoBehaviour
         aHolders.Add(aHolder);
     }
 
+    public void BuyItem(GameObject item)
+    {
+        assets.Add(item.GetComponent<StoreItem>().asset);
+        assets[0].amount -= item.GetComponent<StoreItem>().asset.amount;//WARNINg asset0 hard wired to wallet
+        ClearBalanceSheet(true, false);
+        GenerateBalanceSheet(true, false);
+    }
+
     public void SellAsset(Asset a)
     {
         assets[0].amount += a.amount;//Warning: first item = wallet;
@@ -119,6 +130,20 @@ public class BalanceSheet : MonoBehaviour
         l.AssignTextMesh(lHolder.transform.GetChild(0).GetChild(0).GetComponent<TMP_Text>(), lHolder.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>());
         l.updateText();
         lHolders.Add(lHolder);
+    }
+
+    public void ClearPanels()
+    {
+        int n = assetsPanel.transform.childCount;
+        for (int i = n - 1; i > 0; i--)
+        {
+            Destroy(assetsPanel.transform.GetChild(i).gameObject);
+        }
+        n = liabilitiesPanel.transform.childCount;
+        for (int i = n - 1; i > 0; i--)
+        {
+            Destroy(liabilitiesPanel.transform.GetChild(i).gameObject);
+        }
     }
 
     //clear the UI
