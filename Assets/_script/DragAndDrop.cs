@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 public class DragAndDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler
 {
     [SerializeField] private Canvas canvas;
+    public GameObject grayOut; //the semi transparent shadow to make the current window pop out more
 
 
     private RectTransform rectTransform;
@@ -33,6 +34,12 @@ public class DragAndDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
     public void OnPointerDown(PointerEventData eventData)
     {
         Debug.Log("OnPointerDown");
+        BringToFront();
+    }
+
+    public void BringToFront()
+    {
+        grayOut.transform.SetAsLastSibling();
         transform.SetAsLastSibling();//bring to front
     }
 

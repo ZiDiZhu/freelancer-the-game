@@ -11,6 +11,7 @@ public class GraphicShape : MonoBehaviour
     public GameObject[] shape;//shapes in a template, which are buttons
     public GameObject selectedShape;
     public GameObject[] colorSwatch;
+    public Button bucketTool;
 
     private void Start()
     {
