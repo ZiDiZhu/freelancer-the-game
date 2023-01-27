@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 
 public class Shape : MonoBehaviour, IPointerEnterHandler,IPointerExitHandler
 {
-
+    
     public GraphicShape graphicShape;
     public Color myColor;
     public Texture2D bucketCursorTexture;

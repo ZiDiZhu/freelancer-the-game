@@ -3394,12 +3394,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1147375337}
   m_CullTransparentMesh: 1
+--- !u!1 &1180157808 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 176944, guid: 916ee089a0d7b63419075f91e1c657ec, type: 3}
+  m_PrefabInstance: {fileID: 1780770665}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1180157811 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 11459056, guid: 916ee089a0d7b63419075f91e1c657ec, type: 3}
   m_PrefabInstance: {fileID: 1780770665}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1180157808}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
@@ -6600,6 +6605,7 @@ MonoBehaviour:
   - {fileID: 366113405}
   bucketTool: {fileID: 2120590904}
   currentColor: {r: 1, g: 0, b: 0, a: 1}
+  currentColorReference: {fileID: 1180157808}
 --- !u!4 &1805954343
 Transform:
   m_ObjectHideFlags: 0

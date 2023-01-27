@@ -13,6 +13,7 @@ public class GraphicShape : MonoBehaviour
     public GameObject[] colorSwatch;
     public Button bucketTool;
     public Color currentColor;
+    public GameObject currentColorReference; //to fix the issue where sometimes current color dont update. reference to "fill" under color picker
 
     private void Start()
     {
@@ -39,6 +40,7 @@ public class GraphicShape : MonoBehaviour
 
     private void clickedShape(GameObject myShape)
     {
+        SetCurrentColor(currentColorReference.GetComponent<Image>());
         //fill color
         myShape.GetComponent<Shape>().myColor = currentColor;
         myShape.GetComponent<Image>().color = currentColor;
