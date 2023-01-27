@@ -11,7 +11,7 @@ namespace HSVPicker
 	    public GameObject[] presets;
 	    public Image createPresetImage;
 
-        private ColorPresetList _colors;
+        public ColorPresetList _colors;
 
 	    void Awake()
 	    {

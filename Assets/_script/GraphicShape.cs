@@ -12,13 +12,15 @@ public class GraphicShape : MonoBehaviour
     public GameObject selectedShape;
     public GameObject[] colorSwatch;
     public Button bucketTool;
+    public Color currentColor;
 
     private void Start()
     {
         for(int i = 0; i < shape.Length; i++)
         {
             int n = i;//to prevent variable capturing
-            shape[n].GetComponent<Button>().onClick.AddListener(() => buttonCallBack(shape[n]));//so that clicking on button triggers a callback
+            shape[n].GetComponent<Button>().onClick.AddListener(() => clickedShape(shape[n]));//so that clicking on button triggers a callback
+            
         }
 
         for(int i = 0; i < colorSwatch.Length; i++)
@@ -30,9 +32,18 @@ public class GraphicShape : MonoBehaviour
 
     }
 
-
-    private void buttonCallBack(GameObject myShape)
+    public void SetCurrentColor(Image image)
     {
+        currentColor = image.color;
+    }
+
+    private void clickedShape(GameObject myShape)
+    {
+        //fill color
+        myShape.GetComponent<Shape>().myColor = currentColor;
+        myShape.GetComponent<Image>().color = currentColor;
+
+        /*
         Debug.Log("Pressed button" + myShape.name);
         if (selectedShape == myShape)
         {
@@ -42,22 +53,22 @@ public class GraphicShape : MonoBehaviour
         else
         {
             selectedShape = myShape;
-            selectedShape.GetComponent<Outline>().enabled = true;
         }
+        */
             
     }
 
-    private void colorSwatchClicked(GameObject myColorSwatch)
+    public void colorSwatchClicked(GameObject myColorSwatch)
     {
         if (selectedShape != null)
         {
-            selectedShape.GetComponent<Image>().color = myColorSwatch.GetComponent<Image>().color;
+            //selectedShape.GetComponent<Shape>().myColor = currentColor;
+            currentColor = myColorSwatch.GetComponent<Image>().color;
         }
     }
 
     void DeselectShape()
     {
-        selectedShape.GetComponent<Outline>().enabled = false;
         selectedShape = null;
         EventSystem.current.SetSelectedGameObject(null);
     }

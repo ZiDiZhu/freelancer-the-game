@@ -7,11 +7,15 @@ using UnityEngine.EventSystems;
 
 public class Shape : MonoBehaviour, IPointerEnterHandler,IPointerExitHandler
 {
+
+    public GraphicShape graphicShape;
+    public Color myColor;
+    public Texture2D bucketCursorTexture;
     
     // Start is called before the first frame update
     void Start()
     {
-        
+        myColor = GetComponent<Image>().color;
     }
 
     // Update is called once per frame
@@ -22,11 +26,13 @@ public class Shape : MonoBehaviour, IPointerEnterHandler,IPointerExitHandler
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-
+        //GetComponent<Image>().color = graphicShape.currentColor;
+        Cursor.SetCursor(bucketCursorTexture,Vector2.zero,CursorMode.Auto);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-
+        //GetComponent<Image>().color = myColor;
+        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
     }
 }
