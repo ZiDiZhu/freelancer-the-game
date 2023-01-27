@@ -7,23 +7,19 @@ using TMPro;
 [System.Serializable]
 public class Asset 
 {
-    public string name;
-    public double amount;
+    public AssetObject assetObject;
     public TMP_Text tmp_name;
     public TMP_Text tmp_amount;
 
     public bool sellable;
-
-    public Asset(string n, double a)
+    public Asset(AssetObject ao)
     {
-        name = n;
-        amount = a; 
+        assetObject = ao;
     }
-
     public void updateText()
     {
-        tmp_name.text = name + "";
-        tmp_amount.text = amount + "";
+        tmp_name.text = assetObject.name + "";
+        tmp_amount.text = assetObject.value + "";
     }
 
     public void AssignTextMesh(TMP_Text tname, TMP_Text tamount)
@@ -104,15 +100,15 @@ public class BalanceSheet : MonoBehaviour
 
     public void BuyItem(GameObject item)
     {
-        assets.Add(item.GetComponent<StoreItem>().asset);
-        assets[0].amount -= item.GetComponent<StoreItem>().asset.amount;//WARNINg asset0 hard wired to wallet
+        assets.Add(new Asset(item.GetComponent<StoreItem>().assetObject));
+        assets[0].assetObject.value -= item.GetComponent<StoreItem>().assetObject.value;//WARNINg asset0 hard wired to wallet
         ClearBalanceSheet(true, false);
         GenerateBalanceSheet(true, false);
     }
 
     public void SellAsset(Asset a)
     {
-        assets[0].amount += a.amount;//Warning: first item = wallet;
+        assets[0].assetObject.value += a.assetObject.value;//Warning: first item = wallet;
         assets.Remove(a);
         ClearBalanceSheet(true,false);
         GenerateBalanceSheet(true,false);
@@ -193,7 +189,7 @@ public class BalanceSheet : MonoBehaviour
         double nw = 0;
         foreach(Asset a in assets)
         {
-            nw += a.amount;
+            nw += a.assetObject.value;
         }
         foreach(Liability l in liabilities)
         {

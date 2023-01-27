@@ -6,20 +6,15 @@ using TMPro;
 [System.Serializable]
 public class Commission
 {
-    public string title;
-    public string clientName;
-    public double price;
+    public CommissionObject commissionObject;
     public bool completed;
 
     public TMP_Text tmp_title;
     public TMP_Text tmp_client;
     public TMP_Text tmp_price;
 
-    public Commission(string t,string n,double p)
+    public Commission()
     {
-        title = t;
-        clientName = n;
-        price = p;
         completed = false;
     }
     public void AssignTextMesh(TMP_Text tmp_t,TMP_Text tmp_c, TMP_Text tmp_p)
@@ -27,9 +22,9 @@ public class Commission
         tmp_title = tmp_t;
         tmp_client = tmp_c;
         tmp_price = tmp_p;
-        tmp_title.text = title;
-        tmp_client.text = clientName;
-        tmp_price.text = price + "";
+        tmp_title.text = commissionObject.title;
+        tmp_client.text = commissionObject.clientName;
+        tmp_price.text = commissionObject.pay + "";
     }
 }
 
@@ -57,14 +52,15 @@ public class CommissionsManager : MonoBehaviour
             c.AssignTextMesh(cHolder.transform.GetChild(0).GetComponent<TMP_Text>(), cHolder.transform.GetChild(1).GetComponent<TMP_Text>(), cHolder.transform.GetChild(2).GetComponent<TMP_Text>());
             cHolders.Add(cHolder);
         }
-        
+
+
     }
 
     public void CompleteCommission(Commission c)
     {
         c.completed = true;
         //WARNING first iten should always be wallet hard 
-        balanceSheet.assets[0].amount += c.price;
+        balanceSheet.assets[0].assetObject.value += c.commissionObject.pay;
         balanceSheet.assets[0].updateText();
     }
 

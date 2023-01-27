@@ -2743,26 +2743,10 @@ MonoBehaviour:
   assetsPanel: {fileID: 5138289835437778536}
   liabilitiesPanel: {fileID: 5138289835469671456}
   assets:
-  - name: Wallet
-    amount: 80
+  - assetObject: {fileID: 11400000, guid: 88afb856b4a3e5444910e340bf296a9f, type: 2}
     tmp_name: {fileID: 0}
     tmp_amount: {fileID: 0}
     sellable: 0
-  - name: Computer
-    amount: 800
-    tmp_name: {fileID: 0}
-    tmp_amount: {fileID: 0}
-    sellable: 0
-  - name: Bike
-    amount: 1200
-    tmp_name: {fileID: 0}
-    tmp_amount: {fileID: 0}
-    sellable: 1
-  - name: Mom's Painting
-    amount: 40
-    tmp_name: {fileID: 0}
-    tmp_amount: {fileID: 0}
-    sellable: 1
   liabilities:
   - name: student debt
     amount: 3000
@@ -4671,12 +4655,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bafd34790b0ef6488575a3d1c85b4cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  asset:
-    name: Gaming Console
-    amount: 500
-    tmp_name: {fileID: 0}
-    tmp_amount: {fileID: 0}
-    sellable: 1
+  assetObject: {fileID: 11400000, guid: 10200431419be9d428c2ee130152565c, type: 2}
 --- !u!114 &1324447709
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5747,16 +5726,12 @@ MonoBehaviour:
   commissionPanel: {fileID: 793149910}
   balanceSheet: {fileID: 673140010}
   commissions:
-  - title: Themed Party Invitation Card
-    clientName: David
-    price: 80
+  - commissionObject: {fileID: 11400000, guid: 79f83e21ee5ef2c448effd92b6b10265, type: 2}
     completed: 0
     tmp_title: {fileID: 0}
     tmp_client: {fileID: 0}
     tmp_price: {fileID: 0}
-  - title: Movie Poster
-    clientName: Jermy
-    price: 120
+  - commissionObject: {fileID: 11400000, guid: e1af39418fcdd834cb095eb0702a3da3, type: 2}
     completed: 0
     tmp_title: {fileID: 0}
     tmp_client: {fileID: 0}

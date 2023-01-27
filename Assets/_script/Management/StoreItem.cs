@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class StoreItem : MonoBehaviour
 {
-    public Asset asset;
+    public AssetObject assetObject;
 
     // Start is called before the first frame update
     void Start()
