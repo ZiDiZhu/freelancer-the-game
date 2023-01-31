@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Wallet
   m_EditorClassIdentifier: 
   name: Wallet
-  value: 120
+  value: 200
   sellable: 0
   picture: {fileID: 0}

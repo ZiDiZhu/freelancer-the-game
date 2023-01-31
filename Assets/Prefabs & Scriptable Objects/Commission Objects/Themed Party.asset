@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Themed Party
   m_EditorClassIdentifier: 
   title: Themed Party Invitation Card
-  description: 
-  clientName: David
+  description: 'A themed party invitation card! '
+  client: {fileID: 11400000, guid: a22f2da7a5300214c953b1ccbc5fe634, type: 2}
   pay: 120
   openingDialogues:
   - 

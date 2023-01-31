@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Bat Man Movie Poster
   description: Poster for my horror movie about a bat-swinging maniac
-  clientName: Jermy
+  client: {fileID: 11400000, guid: d51e629412a80ce4d8c4587bf1c57040, type: 2}
   pay: 90
   openingDialogues:
   - Eyyo

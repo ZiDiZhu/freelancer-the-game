@@ -7,7 +7,7 @@ public class CommissionObject : ScriptableObject
 {
     public string title;
     public string description;
-    public string clientName;
+    public ClientObject client;
     public double pay;
 
     public string[] openingDialogues;

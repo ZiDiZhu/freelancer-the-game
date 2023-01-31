@@ -15,4 +15,5 @@ MonoBehaviour:
   name: Ann
   title: Fashion Designer
   pfp: {fileID: 21300000, guid: 1095fe9902788ef46a1c9c514bf4fba1, type: 3}
-  commissionObjects: []
+  commissionObjects:
+  - {fileID: 11400000, guid: a47c0e39193c51e4fa742893d207612a, type: 2}
