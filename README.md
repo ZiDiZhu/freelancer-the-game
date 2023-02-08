@@ -2,8 +2,8 @@
 a puzzle / management game by Zi Di
 
 
-## Current Status 
-(2022-02-06)
+### [week 5 report - Games That Has Inspired This Project](https://github.com/ZiDiZhu/freelancer-the-game/wiki/%5BW5%5D-3-games-that-has-inspired-me)
+
 - The game is in its early stages of development. 
 - The game is made with Unity 2021.3.6f1
 
