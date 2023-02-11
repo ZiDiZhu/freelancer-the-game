@@ -15,8 +15,13 @@ public class GraphicShape : MonoBehaviour
     public Color currentColor;
     public GameObject currentColorReference; //to fix the issue where sometimes current color dont update. reference to "fill" under color picker
 
+    public TMP_Text colorNameTMP;
+    ColorTool colortool;
+
     private void Start()
     {
+        colortool = new ColorTool();
+
         for(int i = 0; i < shape.Length; i++)
         {
             int n = i;//to prevent variable capturing
@@ -36,6 +41,8 @@ public class GraphicShape : MonoBehaviour
     public void SetCurrentColor(Image image)
     {
         currentColor = image.color;
+        colorNameTMP.text = colortool.ColorName(currentColor);
+        Debug.Log(currentColor);
     }
 
     private void clickedShape(GameObject myShape)
