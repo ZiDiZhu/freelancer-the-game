@@ -3066,7 +3066,7 @@ GameObject:
   - component: {fileID: 756856098}
   - component: {fileID: 756856097}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Color Name (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6788,7 +6788,7 @@ MonoBehaviour:
   bucketTool: {fileID: 2120590904}
   currentColor: {r: 1, g: 0, b: 0, a: 1}
   currentColorReference: {fileID: 1180157808}
-  colorNameTMP: {fileID: 0}
+  colorNameTMP: {fileID: 756856097}
 --- !u!4 &1805954343
 Transform:
   m_ObjectHideFlags: 0

@@ -2,11 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
+// Tools for analyzing color
+// most methods takes Color as a parameter and outputs a string (to give the color a term)
+
 public class ColorTool : MonoBehaviour
 {
-    public GameObject currentColorReference; //reference to "fill" under color picker
+    //public GameObject currentColorReference; //reference to "fill" under color picker
 
-    public Color myColor;
+    //public Color myColor;
 
     // Start is called before the first frame update
     void Start()
@@ -18,13 +23,13 @@ public class ColorTool : MonoBehaviour
     void Update()
     {
         //space to test function
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            float H, S, V;
-            Color.RGBToHSV(myColor, out H, out S, out V);
-            Debug.Log("H: " + H + " S: " + S + " V: " + V) ;
-            Debug.Log(ColorName(myColor));
-        }
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    float H, S, V;
+        //    Color.RGBToHSV(myColor, out H, out S, out V);
+        //    Debug.Log("H: " + H + " S: " + S + " V: " + V) ;
+        //    Debug.Log(ColorName(myColor));
+        //}
     }
 
 
@@ -40,12 +45,12 @@ public class ColorTool : MonoBehaviour
 
 
         //if color is closer to black/white/grays
-        if (S <= 0.1||StandardDeviation(rgb)<=0.05) 
+        if (SaturationOf(color) <= 0.1||StandardDeviation(rgb)<=0.05) 
         {
-            if (V <= 0.2)
+            if (ValueOf(color) <= 0.2)
             {
                 return "black";
-            }else if (V >= 0.8)
+            }else if (ValueOf(color) >= 0.8)
             {
                 return "white";
             }
@@ -53,8 +58,75 @@ public class ColorTool : MonoBehaviour
         }
 
         //recognize hue by hsv - 12 colors 
+        return Hue12(HueOf(color));
+        //else
+        return "Color is undefined";
+    }
+
+    //In: Color; Out: float
+    public float HueOf(Color color)
+    {
+        float H, S, V;
+        Color.RGBToHSV(color, out H, out S, out V);
+        return H;
+    }
+    public float SaturationOf(Color color)
+    {
+        float H, S, V;
+        Color.RGBToHSV(color, out H, out S, out V);
+        return S;
+    }
+    public float ValueOf(Color color)
+    {
+        float H, S, V;
+        Color.RGBToHSV(color, out H, out S, out V);
+        return V;
+    }
+
+    //In: color; Out: string or string[]
+    public string ComplementaryOf(Color color)
+    {
+        //could be replaced by string switch case if this gives mistakes
+        float H = HueOf(color);
+        H += 0.5f;
+        if (H > 1)
+        {
+            H -= 1;
+        }
+        return Hue12(H);
+    }
+
+    public List<string> AnalogousOf(Color color) 
+    {
+        List<string> analogousColors = new List<string>();
+        float myHue =HueOf(color);
+        string myName = Hue12(myHue);
+        float leftHue = myHue - 1 / 12;
+        float rightHue = myHue + 1 / 12;
+        
+        //Loop back if out of range
+        if (leftHue < 0)
+            leftHue += 1;
+        if (rightHue > 1)
+            rightHue -= 1;
+
+        string leftAnalogous = Hue12(leftHue);
+        string rightAnalogous = Hue12(rightHue);
+
+
+        //if (!myName.Equals(leftAnalogous))
+        //    analogousColors.Add(leftAnalogous);
+
+        return analogousColors;
+    }
+
+
+    //In: float; Out: string
+    //identify Hue
+    public string Hue12(float H)
+    {
         float offset = 0.05f; //adjusting the color wheel offset
-        float noramlizedH = Mathf.Floor((H + offset) *12);
+        float noramlizedH = Mathf.Floor((H + offset) * 12);
         switch (noramlizedH)
         {
             case 0:
@@ -68,7 +140,7 @@ public class ColorTool : MonoBehaviour
             case 4:
                 return "green";
             case 5:
-                return "spring green";
+                return "mint";
             case 6:
                 return "cyan";
             case 7:
@@ -85,9 +157,7 @@ public class ColorTool : MonoBehaviour
                 return "red";
         }
         return "Color is undefined";
-    }
-
-    //map hue to one of the 6 colors
+    } 
     public string Hue6(float H)
     {
         float offset = 0.1f; //adjusting the color wheel offset
@@ -113,6 +183,8 @@ public class ColorTool : MonoBehaviour
     }
 
 
+    //In: float ; Out:float
+    //Math Tools
     public float StandardDeviation(float[] x)
     {
         float pv = 0; //population variance
@@ -124,7 +196,6 @@ public class ColorTool : MonoBehaviour
         pv /= x.Length;
         return Mathf.Sqrt(pv);
     }
-
     public float Sum(float[] x)
     {
         float s = 0;
@@ -134,7 +205,6 @@ public class ColorTool : MonoBehaviour
         }
         return s;
     }
-
     public float MeanValue(float[] x) //average
     {
         return Sum(x) / (x.Length);
