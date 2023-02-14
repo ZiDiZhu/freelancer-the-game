@@ -101,8 +101,8 @@ public class ColorTool : MonoBehaviour
         List<string> analogousColors = new List<string>();
         float myHue =HueOf(color);
         string myName = Hue12(myHue);
-        float leftHue = myHue - 1 / 12;
-        float rightHue = myHue + 1 / 12;
+        float leftHue = myHue - 0.1f;
+        float rightHue = myHue + 0.1f;
         
         //Loop back if out of range
         if (leftHue < 0)
@@ -112,8 +112,8 @@ public class ColorTool : MonoBehaviour
 
         string leftAnalogous = Hue12(leftHue);
         string rightAnalogous = Hue12(rightHue);
-
-
+        analogousColors.Add(leftAnalogous);
+        analogousColors.Add(rightAnalogous);
         //if (!myName.Equals(leftAnalogous))
         //    analogousColors.Add(leftAnalogous);
 

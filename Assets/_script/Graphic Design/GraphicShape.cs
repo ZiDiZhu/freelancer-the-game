@@ -15,8 +15,12 @@ public class GraphicShape : MonoBehaviour
     public Color currentColor;
     public GameObject currentColorReference; //to fix the issue where sometimes current color dont update. reference to "fill" under color picker
 
-    public TMP_Text colorNameTMP;
+    public TMP_Text colorNameTMP, complementaryNameTMP, analogousText;
     ColorTool colortool;
+
+
+    //requirements mechanic
+    public Toggle[] requirements;//TEMP
 
     private void Start()
     {
@@ -41,7 +45,18 @@ public class GraphicShape : MonoBehaviour
     public void SetCurrentColor(Image image)
     {
         currentColor = image.color;
+
+        //display color information
         colorNameTMP.text = colortool.ColorName(currentColor);
+        complementaryNameTMP.text = colortool.ComplementaryOf(currentColor);
+        string analogous = "";
+        foreach (string str in colortool.AnalogousOf(currentColor))
+        {
+            analogous += " " + str;
+        }
+        analogousText.text = analogous;
+
+
         Debug.Log(currentColor);
     }
 
@@ -52,20 +67,43 @@ public class GraphicShape : MonoBehaviour
         myShape.GetComponent<Shape>().myColor = currentColor;
         myShape.GetComponent<Image>().color = currentColor;
 
-        /*
-        Debug.Log("Pressed button" + myShape.name);
-        if (selectedShape == myShape)
-        {
-            DeselectShape();
-        }
 
-        else
-        {
-            selectedShape = myShape;
-        }
-        */
+        //TEMP
+        TestLevel();
             
     }
+
+    private void TestLevel()
+    {
+        if (HasColor("cyan"))
+        {
+            requirements[0].isOn = true;
+        }
+        if (HasColor("yellow"))
+        {
+            requirements[1].isOn = true;
+        }
+        if (HasColor("red") || HasColor("blue"))
+        {
+            requirements[2].isOn = true;
+        }
+    }
+
+    //TEMP
+    private bool HasColor(string color)
+    {
+        bool hasColor = false;
+        foreach(GameObject sh in shape)
+        {
+            if (colortool.ColorName(sh.GetComponent<Image>().color) == color)
+            {
+                return true;
+            }
+        }
+
+        return hasColor;
+    }
+
 
     public void colorSwatchClicked(GameObject myColorSwatch)
     {
