@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
 
+//A Shape is an element inside the design canvas
 public class Shape : MonoBehaviour, IPointerEnterHandler,IPointerExitHandler
 {
     

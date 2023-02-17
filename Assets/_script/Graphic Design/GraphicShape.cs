@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
 
-//temp, test for a "graphical template"
+//this is a test script for the design app
 public class GraphicShape : MonoBehaviour
 {
     public GameObject[] shape;//shapes in a template, which are buttons
@@ -37,7 +37,6 @@ public class GraphicShape : MonoBehaviour
         {
             int n = i;
             colorSwatch[n].GetComponent<Button>().onClick.AddListener(() => colorSwatchClicked(colorSwatch[n]));
-
         }
 
     }

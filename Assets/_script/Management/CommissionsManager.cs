@@ -17,6 +17,8 @@ public class Commission
     {
         completed = false;
     }
+
+    //ForDisplay - Separate this
     public void AssignTextMesh(TMP_Text tmp_t,TMP_Text tmp_c, TMP_Text tmp_p)
     {
         tmp_title = tmp_t;
@@ -42,19 +44,24 @@ public class CommissionsManager : MonoBehaviour
     void Start()
     {
 
+        PopulateList();
+        
+    }
+
+    public void PopulateList()
+    {
         foreach (Commission c in commissions)
         {
             Transform last_c = cHolders[cHolders.Count - 1].transform;
             float x = last_c.position.x;
-            float y = last_c.position.y-80;
+            float y = last_c.position.y - 80;
             float z = last_c.position.z;
             GameObject cHolder = Instantiate(commissionHolder, new Vector3(x, y, z), Quaternion.identity, commissionPanel.transform);
             c.AssignTextMesh(cHolder.transform.GetChild(0).GetComponent<TMP_Text>(), cHolder.transform.GetChild(1).GetComponent<TMP_Text>(), cHolder.transform.GetChild(2).GetComponent<TMP_Text>());
             cHolders.Add(cHolder);
         }
-
-
     }
+
 
     public void CompleteCommission(Commission c)
     {
