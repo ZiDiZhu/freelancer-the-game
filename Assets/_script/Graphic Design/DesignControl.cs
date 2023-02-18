@@ -8,6 +8,8 @@ using UnityEngine.EventSystems;
 //Action script for the design app. Replace old script "GraphicShape"
 public class DesignControl : MonoBehaviour
 {
+    [SerializeField] private DesignRequirement designRequirement; //manages requirements, attached to to same gameobject as this script, "Design manager"
+
     public GameObject canvasGroup; //contains all canvas elements
     public List<GameObject> canvasElements; //things in your canvas
 
@@ -25,13 +27,19 @@ public class DesignControl : MonoBehaviour
         Bucket, //colors the shape
         Delete //deletes the shape. Disable for templates
     }
-    public InteractionMode currentMode = InteractionMode.Bucket; 
+    public InteractionMode currentMode = InteractionMode.Bucket;
+
+    private void Awake()
+    {
+        designRequirement = gameObject.GetComponent<DesignRequirement>();
+        InitializeButtons();
+        InitializeCanvasElements(canvasGroup);
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        InitializeButtons();
-        InitializeCanvasElements(canvasGroup);
+        
     }
 
     // Update is called once per frame
@@ -102,6 +110,9 @@ public class DesignControl : MonoBehaviour
             //set clicked element color to the colorpicker color
             elem.GetComponent<Image>().color = colorReference.color;
         }
+
+        designRequirement.Evaluate();
+        
     }
 
 
