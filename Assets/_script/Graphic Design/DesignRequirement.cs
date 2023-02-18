@@ -55,11 +55,11 @@ public class DesignRequirement : MonoBehaviour
                     missingColors.Remove(color); //cross color off the list if found 
                 }
             }
-            
         }
 
         return missingColors;
     }
+
 
 
 }

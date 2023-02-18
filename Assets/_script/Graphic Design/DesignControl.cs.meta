@@ -3,7 +3,13 @@ guid: 90d8fcaebc5320e43b2454f46d7f706a
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - canvasGroup: {instanceID: 0}
+  - colorReference: {instanceID: 0}
+  - dragBtn: {instanceID: 0}
+  - bucketBtn: {instanceID: 0}
+  - dragCursor: {fileID: 2800000, guid: e3883b1746080134790b8e72955bc5d8, type: 3}
+  - bucketCursor: {fileID: 2800000, guid: d69694c86371ad2449d9e569e6dfa640, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
