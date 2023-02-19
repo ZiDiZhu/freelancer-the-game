@@ -12,6 +12,6 @@ public class CommissionObject : ScriptableObject
 
     public string[] openingDialogues;
 
-    public bool[] fulfilled;
-    public string[] requirements;
+    public List<string> mustIncludeColors,doNotIncludeColors;
+    public int minNumberColors, maxNumberColors;//set to -1 means no restriction
 }

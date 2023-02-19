@@ -30,7 +30,7 @@ public class GraphicShape : MonoBehaviour
     //    {
     //        int n = i;//to prevent variable capturing
     //        shape[n].GetComponent<Button>().onClick.AddListener(() => clickedShape(shape[n]));//so that clicking on button triggers a callback
-            
+
     //    }
 
     //    for(int i = 0; i < colorSwatch.Length; i++)
@@ -69,7 +69,7 @@ public class GraphicShape : MonoBehaviour
 
     //    //TEMP
     //    TestLevel();
-            
+
     //}
 
     //private void TestLevel()

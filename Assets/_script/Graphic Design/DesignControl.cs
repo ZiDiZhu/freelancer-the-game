@@ -9,6 +9,7 @@ using UnityEngine.EventSystems;
 public class DesignControl : MonoBehaviour
 {
     [SerializeField] private DesignRequirement designRequirement; //manages requirements, attached to to same gameobject as this script, "Design manager"
+    [SerializeField] private RequirementUI requirementUI; //manages requirements, attached to to same gameobject as this script, "Design manager"
 
     public GameObject canvasGroup; //contains all canvas elements
     public List<GameObject> canvasElements; //things in your canvas
@@ -32,6 +33,7 @@ public class DesignControl : MonoBehaviour
     private void Awake()
     {
         designRequirement = gameObject.GetComponent<DesignRequirement>();
+        requirementUI = GetComponent<RequirementUI>();
         InitializeButtons();
         InitializeCanvasElements(canvasGroup);
     }
@@ -111,7 +113,7 @@ public class DesignControl : MonoBehaviour
             elem.GetComponent<Image>().color = colorReference.color;
         }
 
-        designRequirement.Evaluate();
+        requirementUI.UpdateRequirement();
         
     }
 
