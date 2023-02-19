@@ -17,6 +17,17 @@ public class DesignRequirement : MonoBehaviour
     public int minNumberofColors, maxNumberofColors, missingNumberOfColors;//number of colors requiremeny
     public float score;
 
+    //current design "combo"s
+    public bool monochromatic, analogous, complementary, splitcomplementary;
+
+    public enum ColorScheme
+    {
+        None,
+        Monochromatic,
+        Analogous,
+        Complementary,
+        SplitComplementary
+    }
 
     private void Awake()
     {
@@ -47,7 +58,76 @@ public class DesignRequirement : MonoBehaviour
         wrongColors = GetWrongColorsFrom(bannedColors);
         missingNumberOfColors = GetOutOfRangeNumber(minNumberofColors, maxNumberofColors);
         score = PercentageScore();
+
+        EvaluateCombos();
     }
+
+    public void EvaluateCombos()
+    {
+        List<string> myColors = GetDistinctColorsFromCanvasElems(canvasElements);
+        
+        //check if monochromatic
+        if(myColors.Count == 1)
+        {
+            monochromatic = true;
+        }else if (myColors.Count == 2&&(myColors.Contains("black")||myColors.Contains("white")))
+        {
+            monochromatic = true;
+        }
+        else
+        {
+            monochromatic = false;
+        }
+
+        //check if analogous : 2-4 colors next to each other
+
+        analogous = CheckIfAnalogous(canvasElements);
+        complementary = CheckIfComplementary(canvasElements);
+    }
+
+    public bool CheckIfAnalogous(List<GameObject> gameObjects)
+    {
+        List<string> myColors = GetDistinctColorsFromCanvasElems(gameObjects);
+        if (myColors.Count >= 2 || myColors.Count <= 4)
+        {
+            foreach (GameObject go in canvasElements)
+            {
+                List<string> a = colortool.AnalogousOf(go.GetComponent<Image>().color);
+                bool found = false;
+                foreach (string ac in a)
+                {
+                    if (myColors.Contains(ac))
+                    {
+                        found = true;
+                    }
+                }
+                if (!found)
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public bool CheckIfComplementary(List<GameObject> gameObjects)
+    {
+        List<string> myColors = GetDistinctColorsFromCanvasElems(gameObjects);
+        if(myColors.Count == 2 || (myColors.Count == 3 && (myColors.Contains("black") || myColors.Contains("white") || myColors.Contains("gray"))))
+        {
+            foreach(GameObject go in gameObjects)
+            {
+                if (myColors.Contains(colortool.ComplementaryOf(go.GetComponent<Image>().color)))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    
+
+
     public float PercentageScore()
     {
         float totalPossibleScore = requiredColors.Count + bannedColors.Count;

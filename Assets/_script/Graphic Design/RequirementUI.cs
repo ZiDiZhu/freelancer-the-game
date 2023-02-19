@@ -16,7 +16,8 @@ public class RequirementUI : MonoBehaviour
 
     public TMP_Text scoreText,SubmitButtonText;
 
-    
+    public TMP_Text colorSchemeText;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,7 +30,7 @@ public class RequirementUI : MonoBehaviour
         designRequirement.Evaluate();
         if (designRequirement.missingColors.Count == 0)
         {
-            missingColorsText.text = "OK";
+            missingColorsText.text = "OK!";
         }
         else
         {
@@ -41,7 +42,7 @@ public class RequirementUI : MonoBehaviour
         }
         if (designRequirement.wrongColors.Count == 0)
         {
-            wrongColorsText.text = "OK";
+            wrongColorsText.text = "OK!";
         }
         else
         {
@@ -51,6 +52,24 @@ public class RequirementUI : MonoBehaviour
                 wrongColorsText.text += " " + color;
             }
         }
+        if(designRequirement.minNumberofColors!= -1 && designRequirement.maxNumberofColors!= -1)
+        {
+            int n = designRequirement.GetOutOfRangeNumber(designRequirement.minNumberofColors, designRequirement.maxNumberofColors);
+            if (n > 0)
+            {
+                numberDifferenceText.text = "Missing " + n;
+            }
+            if (n < 0)
+            {
+                numberDifferenceText.text = "too many";
+            }
+            if (n == 0)
+            {
+                numberDifferenceText.text = "OK!";
+            }
+        }
+
+        
         
     }
 
@@ -75,7 +94,7 @@ public class RequirementUI : MonoBehaviour
         }
 
         // "Do Not Include"
-        if (designRequirement.requiredColors.Count != 0) //has contain color requirement
+        if (designRequirement.bannedColors.Count != 0) //has contain color requirement
         {
             banColorUI.SetActive(true);
             string txt = "Do Not Include: \n";
@@ -108,7 +127,7 @@ public class RequirementUI : MonoBehaviour
             {
                 txt += "At most " + designRequirement.maxNumberofColors + " distinct colors ";
             }
-            banColorUI.transform.GetChild(0).GetChild(0).GetComponent<TMP_Text>().text = txt;
+            numberOfColorsUI.transform.GetChild(0).GetChild(0).GetComponent<TMP_Text>().text = txt;
 
             numberDifferenceText = numberOfColorsUI.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>();
         }

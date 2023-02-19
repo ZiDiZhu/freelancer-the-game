@@ -83,6 +83,25 @@ public class ColorTool : MonoBehaviour
         return V;
     }
 
+    //warm, cool, neutral
+    public string ToneOf(string color)
+    {
+        if (color == "black" || color == "white" || color == "gray")
+        {
+            return "neutral";
+        }if(color == "magenta"|| color == "rose" || color == "red" || color == "orange" || color == "yellow" || color == "lime")
+        {
+            return "warm";
+        }else if (color == "green" || color == "mint" || color == "cyan" || color == "azure" || color == "blue" || color == "purple")
+        {
+            return "cold";
+        }
+        else
+        {
+            return "unknown tone";
+        }
+    }
+
     //In: color; Out: string or string[]
     public string ComplementaryOf(Color color)
     {

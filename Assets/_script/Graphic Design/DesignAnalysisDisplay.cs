@@ -5,14 +5,14 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
 
-
+//More accurately, currently selected color info displayer
 public class DesignAnalysisDisplay : MonoBehaviour
 {
 
     public Color currentColor;
     public GameObject currentColorReference;
 
-    public TMP_Text colorNameTMP, complementaryNameTMP, analogousText;
+    public TMP_Text colorNameTMP, colorToneTMP,complementaryNameTMP, analogousText;
     ColorTool colortool;
     // Start is called before the first frame update
     void Start()
@@ -51,7 +51,11 @@ public class DesignAnalysisDisplay : MonoBehaviour
 
             complementaryNameTMP.text = "Complementary: " + colortool.ComplementaryOf(currentColor);
         }
-        
+        colorToneTMP.text ="Tone: " + colortool.ToneOf(colortool.ColorName(currentColor));
 
     }
+
+
+
+
 }
