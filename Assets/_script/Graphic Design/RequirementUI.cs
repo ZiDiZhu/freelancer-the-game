@@ -16,7 +16,7 @@ public class RequirementUI : MonoBehaviour
 
     public TMP_Text scoreText,SubmitButtonText;
 
-    public TMP_Text colorSchemeText;
+    public TMP_Text colorSchemeText,toneText;
 
     // Start is called before the first frame update
     void Start()
@@ -69,8 +69,9 @@ public class RequirementUI : MonoBehaviour
             }
         }
 
-        
-        
+        colorSchemeText.text ="Color Scheme: "+ designRequirement.colorScheme.ToString();
+        toneText.text = "Tone: " + designRequirement.EvaluateTone();
+        scoreText.text = "Score: "+designRequirement.score*100 + "%";
     }
 
     public void InitializeRequirementList()

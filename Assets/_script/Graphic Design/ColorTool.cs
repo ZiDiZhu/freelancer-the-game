@@ -94,7 +94,7 @@ public class ColorTool : MonoBehaviour
             return "warm";
         }else if (color == "green" || color == "mint" || color == "cyan" || color == "azure" || color == "blue" || color == "purple")
         {
-            return "cold";
+            return "cool";
         }
         else
         {

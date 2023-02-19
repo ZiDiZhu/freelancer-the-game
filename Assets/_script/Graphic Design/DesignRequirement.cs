@@ -20,6 +20,7 @@ public class DesignRequirement : MonoBehaviour
     //current design "combo"s
     public bool monochromatic, analogous, complementary, splitcomplementary;
 
+    public ColorScheme colorScheme;
     public enum ColorScheme
     {
         None,
@@ -27,6 +28,14 @@ public class DesignRequirement : MonoBehaviour
         Analogous,
         Complementary,
         SplitComplementary
+    }
+    public enum Tone
+    {
+        Neutral, //no leaning
+        Warm, //warm leaning
+        Hot, //all warm
+        Cool,//cool leaning
+        Cold//all cool
     }
 
     private void Awake()
@@ -41,7 +50,7 @@ public class DesignRequirement : MonoBehaviour
         colortool = new ColorTool();
         designControl = GetComponent<DesignControl>();
         canvasElements = designControl.canvasElements;
-
+       
         
     }
 
@@ -62,6 +71,45 @@ public class DesignRequirement : MonoBehaviour
         EvaluateCombos();
     }
 
+    public string EvaluateTone()
+    {
+        List<string> myColors = GetColorStringsFromCanvasElemList(canvasElements);
+        int temp = 0;
+        foreach(string color in myColors)
+        {
+            if (colortool.ToneOf(color) == "warm")
+            {
+                temp++;
+            }
+            else if (colortool.ToneOf(color) == "cool")
+            {
+                temp--;
+            }
+        }
+
+        if(temp == myColors.Count)
+        {
+            return "hot";
+        }else if(temp == myColors.Count * -1)
+        {
+            return "cold";
+        }else if(temp > 0)
+        {
+            return "warm";
+        }else if (temp < 0)
+        {
+            return "cool";
+        }else if(temp == 0)
+        {
+            return "neutral";
+        }
+        else
+        {
+            return "error in tone evaluation";
+        }
+    }
+
+
     public void EvaluateCombos()
     {
         List<string> myColors = GetDistinctColorsFromCanvasElems(canvasElements);
@@ -70,9 +118,11 @@ public class DesignRequirement : MonoBehaviour
         if(myColors.Count == 1)
         {
             monochromatic = true;
+            colorScheme = ColorScheme.Monochromatic;
         }else if (myColors.Count == 2&&(myColors.Contains("black")||myColors.Contains("white")))
         {
             monochromatic = true;
+            colorScheme = ColorScheme.Monochromatic;
         }
         else
         {
@@ -82,7 +132,19 @@ public class DesignRequirement : MonoBehaviour
         //check if analogous : 2-4 colors next to each other
 
         analogous = CheckIfAnalogous(canvasElements);
+        if (analogous)
+        {
+            colorScheme = ColorScheme.Analogous;
+        }
         complementary = CheckIfComplementary(canvasElements);
+        if (complementary)
+        {
+            colorScheme = ColorScheme.Complementary;
+        }
+        if (!complementary && !analogous && !monochromatic)
+        {
+            colorScheme = ColorScheme.None;
+        }
     }
 
     public bool CheckIfAnalogous(List<GameObject> gameObjects)
