@@ -2,36 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
 // Tools for analyzing color
 // most methods takes Color as a parameter and outputs a string (to give the color a term)
 
-public class ColorTool : MonoBehaviour
+public class ColorTool 
 {
-    //public GameObject currentColorReference; //reference to "fill" under color picker
-
-    //public Color myColor;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        //space to test function
-        //if (Input.GetKeyDown(KeyCode.Space))
-        //{
-        //    float H, S, V;
-        //    Color.RGBToHSV(myColor, out H, out S, out V);
-        //    Debug.Log("H: " + H + " S: " + S + " V: " + V) ;
-        //    Debug.Log(ColorName(myColor));
-        //}
-    }
-
 
     //12 names
     public string ColorName(Color color)
@@ -133,8 +108,6 @@ public class ColorTool : MonoBehaviour
         string rightAnalogous = Hue12(rightHue);
         analogousColors.Add(leftAnalogous);
         analogousColors.Add(rightAnalogous);
-        //if (!myName.Equals(leftAnalogous))
-        //    analogousColors.Add(leftAnalogous);
 
         return analogousColors;
     }
@@ -177,30 +150,6 @@ public class ColorTool : MonoBehaviour
         }
         return "Color is undefined";
     } 
-    public string Hue6(float H)
-    {
-        float offset = 0.1f; //adjusting the color wheel offset
-        float noramlizedH = Mathf.Floor((H + offset) * 6);
-        switch (noramlizedH)
-        {
-            case 0:
-                return "red";
-            case 1:
-                return "yellow";
-            case 2:
-                return "green";
-            case 3:
-                return "cyan";
-            case 4:
-                return "blue";
-            case 5:
-                return "magenta";
-            case 6:
-                return "red"; //loop back.
-        }
-        return "Color is undefined";
-    }
-
 
     //In: float ; Out:float
     //Math Tools

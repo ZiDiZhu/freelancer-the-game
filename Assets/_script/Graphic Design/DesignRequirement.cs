@@ -54,12 +54,6 @@ public class DesignRequirement : MonoBehaviour
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void Evaluate()
     {
         //will give unity an invalid operation exception

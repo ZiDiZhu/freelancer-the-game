@@ -14,12 +14,6 @@ public class CanvasElement : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         designControl = FindObjectOfType<DesignControl>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void OnPointerEnter(PointerEventData eventData)
     {
         designControl.changeCursor(true);
