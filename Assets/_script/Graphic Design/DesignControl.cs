@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
 
-//Action script for the design app. Replace old script "GraphicShape"
+//Action script for the design app. 
 public class DesignControl : MonoBehaviour
 {
     [SerializeField] private DesignRequirement designRequirement; //manages requirements, attached to to same gameobject as this script, "Design manager"
@@ -32,23 +32,12 @@ public class DesignControl : MonoBehaviour
 
     private void Awake()
     {
-        designRequirement = gameObject.GetComponent<DesignRequirement>();
+        designRequirement = GetComponent<DesignRequirement>();
         requirementUI = GetComponent<RequirementUI>();
         InitializeButtons();
         InitializeCanvasElements(canvasGroup);
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     //link buttons to callbacks
     private void InitializeButtons()
@@ -112,8 +101,8 @@ public class DesignControl : MonoBehaviour
             //set clicked element color to the colorpicker color
             elem.GetComponent<Image>().color = colorReference.color;
         }
-
-        requirementUI.UpdateRequirement();
+        if(requirementUI!=null)
+            requirementUI.UpdateRequirement();
         
     }
 

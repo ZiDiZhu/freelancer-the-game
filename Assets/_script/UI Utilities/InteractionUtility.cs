@@ -7,7 +7,7 @@ public class InteractionUtility : MonoBehaviour
 
     public void ToggleTargetObjectIsActive(GameObject targetObject)
     {
-        targetObject.SetActive(!targetObject.active);
+        targetObject.SetActive(!targetObject.activeSelf);
     }
 
 }

@@ -50,8 +50,8 @@ public class DesignRequirement : MonoBehaviour
         colortool = new ColorTool();
         designControl = GetComponent<DesignControl>();
         canvasElements = designControl.canvasElements;
-       
-        
+
+        requirementUI.UpdateRequirement();
     }
 
     public void Evaluate()
@@ -83,16 +83,16 @@ public class DesignRequirement : MonoBehaviour
 
         if(temp == myColors.Count)
         {
-            return "hot";
+            return "warm";
         }else if(temp == myColors.Count * -1)
         {
-            return "cold";
+            return "cool";
         }else if(temp > 0)
         {
-            return "warm";
+            return "warm-ish";
         }else if (temp < 0)
         {
-            return "cool";
+            return "cool-ish";
         }else if(temp == 0)
         {
             return "neutral";
@@ -216,7 +216,7 @@ public class DesignRequirement : MonoBehaviour
         {
             foreach (GameObject elem in canvasElements) //for each canvas element
             {
-                if (colortool.ColorName(elem.GetComponent<Image>().color) == color)
+                if (colortool.ColorName(elem.GetComponent<Image>().color) == color && !wrongList.Contains(color))
                 {
                     wrongList.Add(color); //cross color off the list if found 
                 }
@@ -227,7 +227,6 @@ public class DesignRequirement : MonoBehaviour
     public int GetOutOfRangeNumber(int min, int max)
     {
         int n = GetDistinctColorsFromCanvasElems(canvasElements).Count;
-        Debug.Log(n);
         if (n > max)
         {
             return max -n;

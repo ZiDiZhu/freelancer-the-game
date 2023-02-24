@@ -11,7 +11,6 @@ public class ColorTool
     //12 names
     public string ColorName(Color color)
     {
-        string colorName, hName, sName, vName;
 
         float H, S, V;
         Color.RGBToHSV(color, out H, out S, out V);
@@ -34,8 +33,6 @@ public class ColorTool
 
         //recognize hue by hsv - 12 colors 
         return Hue12(HueOf(color));
-        //else
-        return "Color is undefined";
     }
 
     //In: Color; Out: float
@@ -94,7 +91,6 @@ public class ColorTool
     {
         List<string> analogousColors = new List<string>();
         float myHue =HueOf(color);
-        string myName = Hue12(myHue);
         float leftHue = myHue - 0.1f;
         float rightHue = myHue + 0.1f;
         

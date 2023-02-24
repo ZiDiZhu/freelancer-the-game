@@ -9,13 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e40d7b22c572e3e4cb5280e65b406c69, type: 3}
-  m_Name: Tutorial1
+  m_Script: {fileID: 11500000, guid: 50545f789e49efd419d2beaafd97d3e8, type: 3}
+  m_Name: Tutorial Bot
   m_EditorClassIdentifier: 
-  client: {fileID: 0}
-  pay: 0
-  mustIncludeColors: []
-  doNotIncludeColors: []
-  minNumberColors: 5
-  maxNumberColors: 5
-  requiredColorScheme: 0
+  title: 
+  pfp: {fileID: 0}
+  commissionObjects: []

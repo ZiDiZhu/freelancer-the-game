@@ -14,27 +14,22 @@ public class DesignAnalysisDisplay : MonoBehaviour
 
     public TMP_Text colorNameTMP, colorToneTMP,complementaryNameTMP, analogousText;
     ColorTool colortool;
-    // Start is called before the first frame update
-    void Start()
+
+    private void Awake()
     {
         colortool = new ColorTool();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     //Called on Color picker's on value change
     public void UpdateColorInfo()
     {
         Color currentColor = currentColorReference.GetComponent<Image>().color;
+        string currentColorName = colortool.ColorName(currentColor);
 
         //display color information
         colorNameTMP.text = "Color: "+colortool.ColorName(currentColor);
         
-        if(colortool.ColorName(currentColor) =="black"|| colortool.ColorName(currentColor)=="white"|| colortool.ColorName(currentColor) == "gray")
+        if(currentColorName == "black"|| currentColorName == "white"|| currentColorName == "gray")
         {
             analogousText.text = "";
             complementaryNameTMP.text = "";
@@ -51,7 +46,7 @@ public class DesignAnalysisDisplay : MonoBehaviour
 
             complementaryNameTMP.text = "Complementary: " + colortool.ComplementaryOf(currentColor);
         }
-        colorToneTMP.text ="Tone: " + colortool.ToneOf(colortool.ColorName(currentColor));
+        colorToneTMP.text ="Tone: " + colortool.ToneOf(currentColorName);
 
     }
 

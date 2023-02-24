@@ -24,7 +24,7 @@ public class Commission
         tmp_title = tmp_t;
         tmp_client = tmp_c;
         tmp_price = tmp_p;
-        tmp_title.text = commissionObject.title;
+        tmp_title.text = commissionObject.name;
         tmp_client.text = commissionObject.client.name;
         tmp_price.text = commissionObject.pay + "";
     }

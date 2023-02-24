@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
+using DG.Tweening;
 
 //displays UI from DesignRequirement, should attach to same GO
 public class RequirementUI : MonoBehaviour
@@ -18,8 +19,11 @@ public class RequirementUI : MonoBehaviour
 
     public TMP_Text colorSchemeText,toneText;
 
+    public float okTextFontSize = 50f;
+    public float normalTextFontSize = 25f;
+
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         designRequirement = GetComponent<DesignRequirement>();
         InitializeRequirementList();
@@ -30,42 +34,51 @@ public class RequirementUI : MonoBehaviour
         designRequirement.Evaluate();
         if (designRequirement.missingColors.Count == 0)
         {
-            missingColorsText.text = "OK!";
+            ChangeText(missingColorsText, "OK", okTextFontSize, Color.green);
         }
         else
         {
-            missingColorsText.text = "Missing: \n";
+            string txt = "Missing: \n";
             foreach (string color in designRequirement.missingColors)
             {
-                missingColorsText.text += " " + color;
+                txt += " " + color;
             }
+            ChangeText(missingColorsText, txt, normalTextFontSize, Color.white);
         }
+
+        //no wrong colors
         if (designRequirement.wrongColors.Count == 0)
         {
-            wrongColorsText.text = "OK!";
+            ChangeText(wrongColorsText, "OK", okTextFontSize, Color.green);
         }
         else
         {
-            wrongColorsText.text = "Currently contains: \n";
+            string txt = "Currently contains: \n";
             foreach (string color in designRequirement.wrongColors)
             {
-                wrongColorsText.text += " " + color;
+                txt += " " + color;
             }
+            ChangeText(wrongColorsText, txt, normalTextFontSize, Color.white);
         }
         if(designRequirement.minNumberofColors!= -1 && designRequirement.maxNumberofColors!= -1)
         {
             int n = designRequirement.GetOutOfRangeNumber(designRequirement.minNumberofColors, designRequirement.maxNumberofColors);
-            if (n > 0)
-            {
-                numberDifferenceText.text = "Missing " + n;
-            }
-            if (n < 0)
-            {
-                numberDifferenceText.text = "too many";
-            }
+            string txt ="";
             if (n == 0)
             {
-                numberDifferenceText.text = "OK!";
+                ChangeText(numberDifferenceText, "OK!", okTextFontSize, Color.green);
+            }
+            else
+            {
+                if (n > 0)
+                {
+                    txt = "Missing " + n;
+                }
+                if (n < 0)
+                {
+                    txt = n + "too many";
+                }
+                ChangeText(numberDifferenceText, txt, normalTextFontSize, Color.white);
             }
         }
 
@@ -134,6 +147,27 @@ public class RequirementUI : MonoBehaviour
         }
 
         UpdateRequirement();
+    }
+
+
+    private void ChangeText(TMP_Text tmpText,string txt,float size,Color bgColor)
+    {
+        //if changed status
+        if(tmpText.text!=txt)
+        {
+            float duration = 0.1f;
+            float intensity = 0.1f;
+            if (size != tmpText.fontSize)
+            {
+                duration = 0.3f;
+                intensity = 0.3f;
+            }
+            tmpText.transform.DOShakeScale(duration, intensity);
+        }
+
+        tmpText.text = txt;
+        tmpText.fontSize = size;
+        tmpText.transform.parent.GetComponent<Image>().color = bgColor;
     }
 
 }
