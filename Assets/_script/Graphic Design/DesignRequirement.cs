@@ -20,14 +20,16 @@ public class DesignRequirement : MonoBehaviour
     //current design "combo"s
     public bool monochromatic, analogous, complementary, splitcomplementary;
 
-    public ColorScheme colorScheme;
+    public ColorScheme colorScheme,requiredcolorScheme;
     public enum ColorScheme
     {
         None,
         Monochromatic,
         Analogous,
         Complementary,
-        SplitComplementary
+        SplitComplementary,
+        Triadic,
+        Tetradic
     }
     public enum Tone
     {
@@ -41,17 +43,28 @@ public class DesignRequirement : MonoBehaviour
     private void Awake()
     {
         requirementUI = GetComponent<RequirementUI>();
+        colortool = new ColorTool();
+        designControl = GetComponent<DesignControl>();
     }
 
     ColorTool colortool; //I/O for color info
     // Start is called before the first frame update
     void Start()
     {
-        colortool = new ColorTool();
-        designControl = GetComponent<DesignControl>();
         canvasElements = designControl.canvasElements;
-
+        AssignRequirementsFromCommissionObject(commissionObject);
+        
+        requirementUI.InitializeRequirementList();
         requirementUI.UpdateRequirement();
+    }
+
+    public void AssignRequirementsFromCommissionObject(CommissionObject co)
+    {
+        requiredColors = co.mustIncludeColors;
+        bannedColors = co.doNotIncludeColors;
+        maxNumberofColors = co.maxNumberColors;
+        minNumberofColors = co.minNumberColors;
+        requiredcolorScheme = co.requiredColorScheme;
     }
 
     public void Evaluate()
@@ -60,9 +73,10 @@ public class DesignRequirement : MonoBehaviour
         missingColors = GetMissingColorsFrom(requiredColors);
         wrongColors = GetWrongColorsFrom(bannedColors);
         missingNumberOfColors = GetOutOfRangeNumber(minNumberofColors, maxNumberofColors);
-        score = PercentageScore();
 
         EvaluateCombos();
+
+        score = PercentageScore();
     }
 
     public string EvaluateTone()
@@ -124,7 +138,6 @@ public class DesignRequirement : MonoBehaviour
         }
 
         //check if analogous : 2-4 colors next to each other
-
         analogous = CheckIfAnalogous(canvasElements);
         if (analogous)
         {
@@ -139,6 +152,63 @@ public class DesignRequirement : MonoBehaviour
         {
             colorScheme = ColorScheme.None;
         }
+
+        //check if complementary
+        if(myColors.Count>=3 && !myColors.Contains("black") && !myColors.Contains("gray") && !myColors.Contains("white"))
+        {
+            bool isSplit = false;
+            foreach(string color in myColors)
+            {
+                foreach (string c in colortool.AnalogousOf(colortool.ComplementaryOf(color)))
+                {
+                    isSplit = false;
+                    if (myColors.Contains(c))
+                    {
+                        isSplit = true;
+                    }
+                }
+            }
+            if (isSplit)
+            {
+                colorScheme = ColorScheme.SplitComplementary;
+
+            }
+        }
+
+        //check if is triad
+        if (myColors.Count == 3&&!myColors.Contains("black")&&!myColors.Contains("gray")&&!myColors.Contains("white"))
+        {
+            bool triad = true;
+            foreach(string color in myColors)
+            {
+                if (myColors.Contains(colortool.ComplementaryOf(color)))
+                {
+                    triad = false;
+                }
+            }
+            if (triad)
+            {
+                colorScheme = ColorScheme.Triadic;
+            }
+        }
+
+        //check if is triad
+        if (myColors.Count == 4 && !myColors.Contains("black") && !myColors.Contains("gray") && !myColors.Contains("white"))
+        {
+            bool triad = true;
+            foreach (string color in myColors)
+            {
+                if (!myColors.Contains(colortool.ComplementaryOf(color)))
+                {
+                    triad = false;
+                }
+            }
+            if (triad)
+            {
+                colorScheme = ColorScheme.Tetradic;
+            }
+        }
+
     }
 
     public bool CheckIfAnalogous(List<GameObject> gameObjects)
@@ -187,7 +257,16 @@ public class DesignRequirement : MonoBehaviour
     public float PercentageScore()
     {
         float totalPossibleScore = requiredColors.Count + bannedColors.Count;
+        if (requiredcolorScheme != null)
+        {
+            totalPossibleScore += 3;
+        }
+        
         float myScore = totalPossibleScore - missingColors.Count - wrongColors.Count - missingNumberOfColors;
+        if (requiredcolorScheme != colorScheme)
+        {
+            myScore -= 3;
+        }
         return myScore / totalPossibleScore;
     }
     //In: required colors; Out: missing colors

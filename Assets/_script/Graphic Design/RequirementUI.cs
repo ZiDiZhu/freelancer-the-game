@@ -11,11 +11,12 @@ public class RequirementUI : MonoBehaviour
 {
     public DesignRequirement designRequirement;
 
-    public GameObject containColorUI, banColorUI, numberOfColorsUI;
+    public GameObject containColorUI, banColorUI, numberOfColorsUI, requiredColorSchemeUI;
 
-    public TMP_Text missingColorsText, wrongColorsText, numberDifferenceText;
+    public TMP_Text missingColorsText, wrongColorsText, numberDifferenceText, requiredColorSchemeText;
 
     public TMP_Text scoreText,SubmitButtonText;
+    public Button submitButton;
 
     public TMP_Text colorSchemeText,toneText;
 
@@ -26,7 +27,6 @@ public class RequirementUI : MonoBehaviour
     void Awake()
     {
         designRequirement = GetComponent<DesignRequirement>();
-        InitializeRequirementList();
     }
 
     public void UpdateRequirement()
@@ -85,6 +85,26 @@ public class RequirementUI : MonoBehaviour
         colorSchemeText.text ="Color Scheme: "+ designRequirement.colorScheme.ToString();
         toneText.text = "Tone: " + designRequirement.EvaluateTone();
         scoreText.text = "Score: "+designRequirement.score*100 + "%";
+
+        if (designRequirement.score < 0.6)
+        {
+            submitButton.interactable = false;
+        }
+        else
+        {
+            submitButton.interactable = true;
+            if (designRequirement.score == 1)
+            {
+                //change button style
+                submitButton.transform.parent.GetComponent<Image>().color = Color.green;
+            }
+            else
+            {
+                submitButton.GetComponent<Image>().color = Color.white;
+            }
+        }
+
+        
     }
 
     public void InitializeRequirementList()
@@ -146,7 +166,17 @@ public class RequirementUI : MonoBehaviour
             numberDifferenceText = numberOfColorsUI.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>();
         }
 
-        UpdateRequirement();
+        if (designRequirement.requiredcolorScheme != DesignRequirement.ColorScheme.None)
+        {
+            requiredColorSchemeUI.SetActive(true);
+            requiredColorSchemeText = requiredColorSchemeUI.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>();
+            requiredColorSchemeUI.transform.GetChild(0).GetChild(0).GetComponent<TMP_Text>().text = "Required Color scheme: \n" + designRequirement.requiredcolorScheme;
+        }
+        else
+        {
+            requiredColorSchemeUI.SetActive(false);
+        }
+
     }
 
 

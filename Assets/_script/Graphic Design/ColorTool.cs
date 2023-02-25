@@ -7,7 +7,6 @@ using UnityEngine;
 
 public class ColorTool 
 {
-
     //12 names
     public string ColorName(Color color)
     {
@@ -74,26 +73,62 @@ public class ColorTool
         }
     }
 
-    //In: color; Out: string or string[]
+    
     public string ComplementaryOf(Color color)
     {
+        return ComplementaryOf(ColorName(color));
+
         //could be replaced by string switch case if this gives mistakes
-        float H = HueOf(color);
-        H += 0.5f;
-        if (H > 1)
-        {
-            H -= 1;
-        }
-        return Hue12(H);
+        //float H = HueOf(color);
+        //H += 0.5f;
+        //if (H > 1)
+        //{
+        //    H -= 1;
+        //}
+        //return Hue12(H);
     }
 
-    public List<string> AnalogousOf(Color color) 
+    //For Canvas evaluation, maybe The analog colors of the complementary also count
+    public string ComplementaryOf(string color)
+    {
+        switch (color)
+        {
+            case "red":
+                return "cyan";
+            case "orange":
+                return "azure";
+            case "yellow":
+                return "blue";
+            case "lime":
+                return "purple";
+            case "green":
+                return "magenta";
+            case "mint":
+                return "rose";
+            case "cyan":
+                return "red";
+            case "azure":
+                return "orange";
+            case "blue":
+                return "yellow";
+            case "purple":
+                return "lime";
+            case "magenta":
+                return "green";
+            case "rose":
+                return "mint";
+            default:
+                return "n/a";
+        }
+    }
+
+    public List<string> AnalogousOf(Color color)
     {
         List<string> analogousColors = new List<string>();
-        float myHue =HueOf(color);
+        float myHue = HueOf(color);
         float leftHue = myHue - 0.1f;
         float rightHue = myHue + 0.1f;
-        
+
         //Loop back if out of range
         if (leftHue < 0)
             leftHue += 1;
@@ -106,6 +141,39 @@ public class ColorTool
         analogousColors.Add(rightAnalogous);
 
         return analogousColors;
+    }
+
+    public List<string> AnalogousOf(string color)
+    {
+        switch (color)
+        {
+            case "red":
+                return new List<string>{ "orange","rose"};
+            case "orange":
+                return new List<string> { "red", "yellow" };
+            case "yellow":
+                return new List<string> { "orange", "lime" };
+            case "lime":
+                return new List<string> { "yellow", "green" };
+            case "green":
+                return new List<string> { "mint", "lime" };
+            case "mint":
+                return new List<string> { "green", "cyan" };
+            case "cyan":
+                return new List<string> { "mint", "azure" };
+            case "azure":
+                return new List<string> { "cyan", "blue" };
+            case "blue":
+                return new List<string> { "azure", "purple" };
+            case "purple":
+                return new List<string> { "blue", "magenta" };
+            case "magenta":
+                return new List<string> { "purple", "rose" };
+            case "rose":
+                return new List<string> { "red", "magenta" };
+            default:
+                return null;
+        }
     }
 
 
