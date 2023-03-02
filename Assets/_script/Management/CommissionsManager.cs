@@ -56,7 +56,7 @@ public class CommissionsManager : MonoBehaviour
             float x = last_c.position.x;
             float y = last_c.position.y - 80;
             float z = last_c.position.z;
-            GameObject cHolder = Instantiate(commissionHolder, new Vector3(x, y, z), Quaternion.identity, commissionPanel.transform);
+            GameObject cHolder = Instantiate(commissionHolder, new Vector3(x, y, z), Quaternion.identity, commissionHolder.transform.parent);
             c.AssignTextMesh(cHolder.transform.GetChild(0).GetComponent<TMP_Text>(), cHolder.transform.GetChild(1).GetComponent<TMP_Text>(), cHolder.transform.GetChild(2).GetComponent<TMP_Text>());
             cHolders.Add(cHolder);
         }

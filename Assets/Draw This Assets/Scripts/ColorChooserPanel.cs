@@ -11,6 +11,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using HSVPicker;
 
 public class ColorChooserPanel : MonoBehaviour
 {
@@ -30,28 +31,29 @@ public class ColorChooserPanel : MonoBehaviour
     [SerializeField]
     private Slider blue_slider_color;
 
+    public ColorPicker colorPicker;
 
     // Start is called before the first frame update
     void Start()
     {
         updateColor();
 
-        red_slider_color.onValueChanged.AddListener(delegate { updateColor(); });
-        green_slider_color.onValueChanged.AddListener(delegate { updateColor(); });
-        blue_slider_color.onValueChanged.AddListener(delegate { updateColor(); });
+        //red_slider_color.onValueChanged.AddListener(delegate { updateColor(); });
+        //green_slider_color.onValueChanged.AddListener(delegate { updateColor(); });
+        //blue_slider_color.onValueChanged.AddListener(delegate { updateColor(); });
        
     }
 
-    private void updateColor()
+    public void updateColor()
     {
-        Color color = new Color(red_slider_color.value,
-                                             green_slider_color.value,
-                                             blue_slider_color.value,
-                                             1);
+        //Color color = new Color(red_slider_color.value,
+        //                                     green_slider_color.value,
+        //                                     blue_slider_color.value,
+        //                                     1);
 
-        draw_engine.chosen_color = color;
+        draw_engine.chosen_color = colorPicker.CurrentColor;
 
-        display_color_image.color = color;
+        display_color_image.color = colorPicker.CurrentColor;
     }
 
     public void toggleVisibility()
