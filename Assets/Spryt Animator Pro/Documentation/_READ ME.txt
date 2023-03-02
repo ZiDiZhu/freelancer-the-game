@@ -1,0 +1,3 @@
+To ensure compatibility with Spryt Animator Pro scripts, you will need to use a newer standard of .NET in Unity. The way this is done varies based on which Version of Unity you are using:
+- For Unity 2017x: “Edit > Project Settings > Player > Other Settings > Configuration > Scripting Runtime Version” should be set to “Exparimental (.NET 4.6 Equivalent)”. Making the change will require a restart of Unity.
+- Unity 2018 onwards: “Edit > Project Settings > Player > Other Settings > Configuration > Api Compatibility Level” should be set to “.NET 4.x”
