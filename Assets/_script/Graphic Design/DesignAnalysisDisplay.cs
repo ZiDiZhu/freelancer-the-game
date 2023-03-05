@@ -4,13 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
+using HSVPicker;
 
 //More accurately, currently selected color info displayer
 public class DesignAnalysisDisplay : MonoBehaviour
 {
-
+    [SerializeField] private ColorPicker colorPicker;
     public Color currentColor;
-    public GameObject currentColorReference;
 
     public TMP_Text colorNameTMP, colorToneTMP,complementaryNameTMP, analogousText;
     ColorTool colortool;
@@ -18,12 +18,18 @@ public class DesignAnalysisDisplay : MonoBehaviour
     private void Awake()
     {
         colortool = new ColorTool();
+        if (colorPicker == null)
+        {
+            colorPicker = FindObjectOfType<ColorPicker>();
+        }
+        UpdateColorInfo();
+        
     }
 
     //Called on Color picker's on value change
     public void UpdateColorInfo()
     {
-        Color currentColor = currentColorReference.GetComponent<Image>().color;
+        Color currentColor = colorPicker.CurrentColor;
         string currentColorName = colortool.ColorName(currentColor);
 
         //display color information

@@ -13,7 +13,7 @@ public class RequirementUI : MonoBehaviour
 
     public GameObject containColorUI, banColorUI, numberOfColorsUI, requiredColorSchemeUI;
 
-    public TMP_Text missingColorsText, wrongColorsText, numberDifferenceText, requiredColorSchemeText;
+    private TMP_Text missingColorsText, wrongColorsText, numberDifferenceText, requiredColorSchemeText;
 
     public TMP_Text scoreText,SubmitButtonText;
     public Button submitButton;
@@ -23,20 +23,42 @@ public class RequirementUI : MonoBehaviour
     public float okTextFontSize = 50f;
     public float normalTextFontSize = 25f;
 
+    public GameObject endScreen; //shows once Submitted.
+    public TMP_Text resultText;
+
     // Start is called before the first frame update
     void Awake()
     {
         designRequirement = GetComponent<DesignRequirement>();
+        endScreen.SetActive(false);
+        submitButton.onClick.AddListener(() => UpdateEndScreen());
+        UpdateRequirement();
+    }
+
+    public void UpdateEndScreen()
+    {
+        endScreen.SetActive(true);
+        if (designRequirement.score == 1)
+        {
+            resultText.text = "Perfect Job!";
+        }else if (designRequirement.score <= 1 && designRequirement.score >= 0.6)
+        {
+            resultText.text = "OK job!";
+        }
+        else
+        {
+            resultText.text = "That Was BAD!";
+        }
     }
 
     public void UpdateRequirement()
     {
         designRequirement.Evaluate();
-        if (designRequirement.missingColors.Count == 0)
+        if (designRequirement.requiredColors.Count!=0&& designRequirement.missingColors.Count == 0)
         {
             ChangeText(missingColorsText, "OK", okTextFontSize, Color.green);
         }
-        else
+        else if(designRequirement.requiredColors.Count != 0 && designRequirement.missingColors.Count != 0)
         {
             string txt = "Missing: \n";
             foreach (string color in designRequirement.missingColors)
@@ -174,7 +196,7 @@ public class RequirementUI : MonoBehaviour
         }
         else
         {
-            requiredColorSchemeUI.SetActive(false);
+            //requiredColorSchemeUI.SetActive(false);
         }
 
     }
@@ -183,7 +205,7 @@ public class RequirementUI : MonoBehaviour
     private void ChangeText(TMP_Text tmpText,string txt,float size,Color bgColor)
     {
         //if changed status
-        if(tmpText.text!=txt)
+        if(tmpText.text!=null&&tmpText.text!=txt)
         {
             float duration = 0.1f;
             float intensity = 0.1f;

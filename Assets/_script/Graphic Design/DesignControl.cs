@@ -4,17 +4,21 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
-
+using HSVPicker;
 //Action script for the design app. 
 public class DesignControl : MonoBehaviour
 {
+    [SerializeField] private ColorPicker colorPicker;
+
+
     [SerializeField] private DesignRequirement designRequirement; //manages requirements, attached to to same gameobject as this script, "Design manager"
     [SerializeField] private RequirementUI requirementUI; //manages requirements, attached to to same gameobject as this script, "Design manager"
 
     public GameObject canvasGroup; //contains all canvas elements
     public List<GameObject> canvasElements; //things in your canvas
 
-    public Image colorReference; //the current color on Color Picker
+
+    
 
     public Button dragBtn, bucketBtn; //delete btn to be added
 
@@ -34,6 +38,10 @@ public class DesignControl : MonoBehaviour
     {
         designRequirement = GetComponent<DesignRequirement>();
         requirementUI = GetComponent<RequirementUI>();
+        if (colorPicker == null)
+        {
+            colorPicker = FindObjectOfType<ColorPicker>();
+        }
         InitializeButtons();
         InitializeCanvasElements(canvasGroup);
     }
@@ -99,7 +107,7 @@ public class DesignControl : MonoBehaviour
         if(currentMode == InteractionMode.Bucket)
         {
             //set clicked element color to the colorpicker color
-            elem.GetComponent<Image>().color = colorReference.color;
+            elem.GetComponent<Image>().color = colorPicker.CurrentColor;
         }
         if(requirementUI!=null)
             requirementUI.UpdateRequirement();

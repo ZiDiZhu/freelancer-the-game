@@ -82,6 +82,7 @@ public class DesignRequirement : MonoBehaviour
     public string EvaluateTone()
     {
         List<string> myColors = GetColorStringsFromCanvasElemList(canvasElements);
+        int nOfColors = myColors.Count;
         int temp = 0;
         foreach(string color in myColors)
         {
@@ -95,10 +96,10 @@ public class DesignRequirement : MonoBehaviour
             }
         }
 
-        if(temp == myColors.Count)
+        if(temp == nOfColors)
         {
             return "warm";
-        }else if(temp == myColors.Count * -1)
+        }else if(temp == nOfColors * -1)
         {
             return "cool";
         }else if(temp > 0)
@@ -121,9 +122,10 @@ public class DesignRequirement : MonoBehaviour
     public void EvaluateCombos()
     {
         List<string> myColors = GetDistinctColorsFromCanvasElems(canvasElements);
-        
+        int nOfColors = myColors.Count;
+
         //check if monochromatic
-        if(myColors.Count == 1)
+        if(nOfColors == 1)
         {
             monochromatic = true;
             colorScheme = ColorScheme.Monochromatic;
@@ -154,7 +156,7 @@ public class DesignRequirement : MonoBehaviour
         }
 
         //check if complementary
-        if(myColors.Count>=3 && !myColors.Contains("black") && !myColors.Contains("gray") && !myColors.Contains("white"))
+        if(nOfColors >= 3 && !myColors.Contains("black") && !myColors.Contains("gray") && !myColors.Contains("white"))
         {
             bool isSplit = false;
             foreach(string color in myColors)
@@ -176,7 +178,7 @@ public class DesignRequirement : MonoBehaviour
         }
 
         //check if is triad
-        if (myColors.Count == 3&&!myColors.Contains("black")&&!myColors.Contains("gray")&&!myColors.Contains("white"))
+        if (nOfColors == 3&&!myColors.Contains("black")&&!myColors.Contains("gray")&&!myColors.Contains("white"))
         {
             bool triad = true;
             foreach(string color in myColors)
@@ -192,8 +194,8 @@ public class DesignRequirement : MonoBehaviour
             }
         }
 
-        //check if is triad
-        if (myColors.Count == 4 && !myColors.Contains("black") && !myColors.Contains("gray") && !myColors.Contains("white"))
+        //check if is tetradic
+        if (nOfColors == 4 && !myColors.Contains("black") && !myColors.Contains("gray") && !myColors.Contains("white"))
         {
             bool triad = true;
             foreach (string color in myColors)
@@ -263,12 +265,13 @@ public class DesignRequirement : MonoBehaviour
         }
         
         float myScore = totalPossibleScore - missingColors.Count - wrongColors.Count - missingNumberOfColors;
-        if (requiredcolorScheme != colorScheme)
+        if (requiredcolorScheme !=ColorScheme.None&&requiredcolorScheme != colorScheme)
         {
             myScore -= 3;
         }
         return myScore / totalPossibleScore;
     }
+
     //In: required colors; Out: missing colors
     //if returned null, its a success.
     public List<string> GetMissingColorsFrom(List<string> colors)
