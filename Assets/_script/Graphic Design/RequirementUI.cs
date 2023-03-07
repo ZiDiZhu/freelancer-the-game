@@ -65,7 +65,8 @@ public class RequirementUI : MonoBehaviour
             {
                 txt += " " + color;
             }
-            ChangeText(missingColorsText, txt, normalTextFontSize, Color.white);
+            if(missingColorsText!=null)
+                ChangeText(missingColorsText, txt, normalTextFontSize, Color.white);
         }
 
         //no wrong colors
@@ -107,6 +108,20 @@ public class RequirementUI : MonoBehaviour
         colorSchemeText.text ="Color Scheme: "+ designRequirement.colorScheme.ToString();
         toneText.text = "Tone: " + designRequirement.EvaluateTone();
         scoreText.text = "Score: "+designRequirement.score*100 + "%";
+
+        //if fits the color scheme
+        if (designRequirement.requiredcolorScheme != DesignRequirement.ColorScheme.None)
+        {
+            if (designRequirement.colorScheme == designRequirement.requiredcolorScheme)
+            {
+                ChangeText(requiredColorSchemeText, "OK", okTextFontSize, Color.green);
+            }
+            else
+            {
+                ChangeText(requiredColorSchemeText, "Current Color Scheme: " + designRequirement.colorScheme.ToString(), normalTextFontSize, Color.white);
+            }
+        }
+        
 
         if (designRequirement.score < 0.6)
         {
@@ -207,19 +222,25 @@ public class RequirementUI : MonoBehaviour
         //if changed status
         if(tmpText.text!=null&&tmpText.text!=txt)
         {
-            float duration = 0.1f;
-            float intensity = 0.1f;
-            if (size != tmpText.fontSize)
+            if (tmpText.text != txt)
             {
-                duration = 0.3f;
-                intensity = 0.3f;
+                float duration = 0.1f;
+                float intensity = 0.1f;
+                if (size != tmpText.fontSize)
+                {
+                    duration = 0.3f;
+                    intensity = 0.3f;
+                }
+                tmpText.transform.DOShakeScale(duration, intensity);
+
+                tmpText.text = txt;
+                tmpText.fontSize = size;
+                tmpText.transform.parent.GetComponent<Image>().color = bgColor;
             }
-            tmpText.transform.DOShakeScale(duration, intensity);
+            
         }
 
-        tmpText.text = txt;
-        tmpText.fontSize = size;
-        tmpText.transform.parent.GetComponent<Image>().color = bgColor;
+        
     }
 
 }

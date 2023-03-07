@@ -224,7 +224,7 @@ public class DesignRequirement : MonoBehaviour
                 bool found = false;
                 foreach (string ac in a)
                 {
-                    if (myColors.Contains(ac))
+                    if (myColors.Contains(ac)&&ac!=colortool.ColorName(go.GetComponent<Image>().color))
                     {
                         found = true;
                     }
@@ -245,10 +245,16 @@ public class DesignRequirement : MonoBehaviour
         {
             foreach(GameObject go in gameObjects)
             {
-                if (myColors.Contains(colortool.ComplementaryOf(go.GetComponent<Image>().color)))
+                //Analogous of complementary works too, for a more forgiving evaluation
+                List<string> simlarColors = colortool.AnalogousOf(go.GetComponent<Image>().color);
+                foreach(string color in simlarColors)
                 {
-                    return true;
+                    if (myColors.Contains(colortool.ComplementaryOf(color)))
+                    {
+                        return true;
+                    }
                 }
+
             }
         }
         return false;

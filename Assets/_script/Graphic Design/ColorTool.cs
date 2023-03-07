@@ -122,6 +122,7 @@ public class ColorTool
         }
     }
 
+    //CHANGED: This list now contains the color itself
     public List<string> AnalogousOf(Color color)
     {
         List<string> analogousColors = new List<string>();
@@ -139,6 +140,7 @@ public class ColorTool
         string rightAnalogous = Hue12(rightHue);
         analogousColors.Add(leftAnalogous);
         analogousColors.Add(rightAnalogous);
+        analogousColors.Add(Hue12(myHue));
 
         return analogousColors;
     }
