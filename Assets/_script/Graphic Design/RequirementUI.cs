@@ -9,9 +9,9 @@ using DG.Tweening;
 //displays UI from DesignRequirement, should attach to same GO
 public class RequirementUI : MonoBehaviour
 {
-    public DesignRequirement designRequirement;
+    public DesignRequirement dR;
 
-    public GameObject containColorUI, banColorUI, numberOfColorsUI, requiredColorSchemeUI;
+    public GameObject mustIncludeColorsUI, banColorUI, numberOfColorsUI, requiredColorSchemeUI;
 
     private TMP_Text missingColorsText, wrongColorsText, numberDifferenceText, requiredColorSchemeText;
 
@@ -29,7 +29,7 @@ public class RequirementUI : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        designRequirement = GetComponent<DesignRequirement>();
+        dR = GetComponent<DesignRequirement>();
         endScreen.SetActive(false);
         submitButton.onClick.AddListener(() => UpdateEndScreen());
         UpdateRequirement();
@@ -38,10 +38,10 @@ public class RequirementUI : MonoBehaviour
     public void UpdateEndScreen()
     {
         endScreen.SetActive(true);
-        if (designRequirement.score == 1)
+        if (dR.score == 1)
         {
             resultText.text = "Perfect Job!";
-        }else if (designRequirement.score <= 1 && designRequirement.score >= 0.6)
+        }else if (dR.score <= 1 && dR.score >= 0.6)
         {
             resultText.text = "OK job!";
         }
@@ -53,15 +53,15 @@ public class RequirementUI : MonoBehaviour
 
     public void UpdateRequirement()
     {
-        designRequirement.Evaluate();
-        if (designRequirement.requiredColors.Count!=0&& designRequirement.missingColors.Count == 0)
+        dR.Evaluate();
+        if (dR.requiredColors.Count!=0&& dR.missingColors.Count == 0)
         {
             ChangeText(missingColorsText, "OK", okTextFontSize, Color.green);
         }
-        else if(designRequirement.requiredColors.Count != 0 && designRequirement.missingColors.Count != 0)
+        else if(dR.requiredColors.Count != 0 && dR.missingColors.Count != 0)
         {
             string txt = "Missing: \n";
-            foreach (string color in designRequirement.missingColors)
+            foreach (string color in dR.missingColors)
             {
                 txt += " " + color;
             }
@@ -70,22 +70,22 @@ public class RequirementUI : MonoBehaviour
         }
 
         //no wrong colors
-        if (designRequirement.wrongColors.Count == 0)
+        if (dR.wrongColors.Count == 0)
         {
             ChangeText(wrongColorsText, "OK", okTextFontSize, Color.green);
         }
         else
         {
             string txt = "Currently contains: \n";
-            foreach (string color in designRequirement.wrongColors)
+            foreach (string color in dR.wrongColors)
             {
                 txt += " " + color;
             }
             ChangeText(wrongColorsText, txt, normalTextFontSize, Color.white);
         }
-        if(designRequirement.minNumberofColors!= -1 && designRequirement.maxNumberofColors!= -1)
+        if(dR.minNumberofColors!= -1 && dR.maxNumberofColors!= -1)
         {
-            int n = designRequirement.GetOutOfRangeNumber(designRequirement.minNumberofColors, designRequirement.maxNumberofColors);
+            int n = dR.GetOutOfRangeNumber(dR.minNumberofColors, dR.maxNumberofColors);
             string txt ="";
             if (n == 0)
             {
@@ -105,32 +105,32 @@ public class RequirementUI : MonoBehaviour
             }
         }
 
-        colorSchemeText.text ="Color Scheme: "+ designRequirement.colorScheme.ToString();
-        toneText.text = "Tone: " + designRequirement.EvaluateTone();
-        scoreText.text = "Score: "+designRequirement.score*100 + "%";
+        colorSchemeText.text ="Color Scheme: "+ dR.colorScheme.ToString();
+        toneText.text = "Tone: " + dR.EvaluateTone();
+        scoreText.text = "Score: "+dR.score*100 + "%";
 
         //if fits the color scheme
-        if (designRequirement.requiredcolorScheme != DesignRequirement.ColorScheme.None)
+        if (dR.requiredcolorScheme != DesignRequirement.ColorScheme.None)
         {
-            if (designRequirement.colorScheme == designRequirement.requiredcolorScheme)
+            if (dR.colorScheme == dR.requiredcolorScheme)
             {
                 ChangeText(requiredColorSchemeText, "OK", okTextFontSize, Color.green);
             }
             else
             {
-                ChangeText(requiredColorSchemeText, "Current Color Scheme: " + designRequirement.colorScheme.ToString(), normalTextFontSize, Color.white);
+                ChangeText(requiredColorSchemeText, "Current Color Scheme: " + dR.colorScheme.ToString(), normalTextFontSize, Color.white);
             }
         }
         
 
-        if (designRequirement.score < 0.6)
+        if (dR.score < 0.6)
         {
             submitButton.interactable = false;
         }
         else
         {
             submitButton.interactable = true;
-            if (designRequirement.score == 1)
+            if (dR.score == 1)
             {
                 //change button style
                 submitButton.transform.parent.GetComponent<Image>().color = Color.green;
@@ -148,28 +148,28 @@ public class RequirementUI : MonoBehaviour
     {
         
         // "Must include"
-        if (designRequirement.requiredColors.Count != 0) //has contain color requirement
+        if (dR.requiredColors.Count != 0) //has contain color requirement
         {
-            containColorUI.SetActive(true);
+            mustIncludeColorsUI.SetActive(true);
             string txt = "Must Include: \n";
-            foreach (string color in designRequirement.requiredColors)
+            foreach (string color in dR.requiredColors)
             {
                 txt += color + " ";
             }
-            containColorUI.transform.GetChild(0).GetChild(0).GetComponent<TMP_Text>().text = txt;
-            missingColorsText = containColorUI.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>();
+            mustIncludeColorsUI.transform.GetChild(0).GetChild(0).GetComponent<TMP_Text>().text = txt;
+            missingColorsText = mustIncludeColorsUI.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>();
         }
         else
         {
-            containColorUI.SetActive(false);
+            mustIncludeColorsUI.SetActive(false);
         }
 
         // "Do Not Include"
-        if (designRequirement.bannedColors.Count != 0) //has contain color requirement
+        if (dR.bannedColors.Count != 0) //has contain color requirement
         {
             banColorUI.SetActive(true);
             string txt = "Do Not Include: \n";
-            foreach (string color in designRequirement.bannedColors)
+            foreach (string color in dR.bannedColors)
             {
                 txt += color + " ";
             }
@@ -178,36 +178,36 @@ public class RequirementUI : MonoBehaviour
         }
         else
         {
-            containColorUI.SetActive(false);
+            mustIncludeColorsUI.SetActive(false);
         }
-        if (designRequirement.minNumberofColors == -1 && designRequirement.maxNumberofColors == -1)
+        if (dR.minNumberofColors == -1 && dR.maxNumberofColors == -1)
         {
             numberOfColorsUI.SetActive(false);
         }
         else
         {
             string txt = "";
-            if(designRequirement.minNumberofColors == designRequirement.maxNumberofColors)
+            if(dR.minNumberofColors == dR.maxNumberofColors)
             {
-                txt += "Must contain " + designRequirement.minNumberofColors + " distinct colors";
-            }else if (designRequirement.minNumberofColors != -1)
+                txt += "Must contain " + dR.minNumberofColors + " distinct colors";
+            }else if (dR.minNumberofColors != -1)
             {
-                txt += "At least " + designRequirement.minNumberofColors+ " distinct colors ";
+                txt += "At least " + dR.minNumberofColors+ " distinct colors ";
             }
-            else if (designRequirement.maxNumberofColors != -1)
+            else if (dR.maxNumberofColors != -1)
             {
-                txt += "At most " + designRequirement.maxNumberofColors + " distinct colors ";
+                txt += "At most " + dR.maxNumberofColors + " distinct colors ";
             }
             numberOfColorsUI.transform.GetChild(0).GetChild(0).GetComponent<TMP_Text>().text = txt;
 
             numberDifferenceText = numberOfColorsUI.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>();
         }
 
-        if (designRequirement.requiredcolorScheme != DesignRequirement.ColorScheme.None)
+        if (dR.requiredcolorScheme != DesignRequirement.ColorScheme.None)
         {
             requiredColorSchemeUI.SetActive(true);
             requiredColorSchemeText = requiredColorSchemeUI.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>();
-            requiredColorSchemeUI.transform.GetChild(0).GetChild(0).GetComponent<TMP_Text>().text = "Required Color scheme: \n" + designRequirement.requiredcolorScheme;
+            requiredColorSchemeUI.transform.GetChild(0).GetChild(0).GetComponent<TMP_Text>().text = "Required Color scheme: \n" + dR.requiredcolorScheme;
         }
         else
         {

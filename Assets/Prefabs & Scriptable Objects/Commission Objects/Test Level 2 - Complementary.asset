@@ -16,9 +16,8 @@ MonoBehaviour:
   pay: 0
   mustIncludeColors: []
   doNotIncludeColors:
-  - black
-  - white
-  - gray
+  - red
+  - yellow
   - blue
   - azure
   - cyan
