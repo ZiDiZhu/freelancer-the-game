@@ -35,7 +35,7 @@ public class DesignControl : MonoBehaviour
     public InteractionMode currentMode = InteractionMode.Bucket;
 
     private void Awake()
-    {
+    {   
         designRequirement = GetComponent<DesignRequirement>();
         requirementUI = GetComponent<RequirementUI>();
         if (colorPicker == null)
@@ -49,9 +49,10 @@ public class DesignControl : MonoBehaviour
 
     //link buttons to callbacks
     private void InitializeButtons()
-    {
-        dragBtn.onClick.AddListener(() => DragBtnClicked());
-        bucketBtn.onClick.AddListener(() => BucketBtnClicked());
+    {   if(dragBtn!=null)
+            dragBtn.onClick.AddListener(() => DragBtnClicked());
+        if (bucketBtn != null)
+            bucketBtn.onClick.AddListener(() => BucketBtnClicked());
     }
 
     //Link canvas elements to callback. (has to be clickable) 
@@ -66,7 +67,8 @@ public class DesignControl : MonoBehaviour
         for (int i = 0; i < canvasElements.Count; i++)
         {
             int n = i;//to prevent variable capturing
-            canvasElements[n].GetComponent<Button>().onClick.AddListener(() => CanvasElementClicked(canvasElements[n]));//so that clicking on button triggers a callback
+            if(canvasElements[n].GetComponent<Button>()!=null)
+                canvasElements[n].GetComponent<Button>().onClick.AddListener(() => CanvasElementClicked(canvasElements[n]));//so that clicking on button triggers a callback
         }
 
     }
