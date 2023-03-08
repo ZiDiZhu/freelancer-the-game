@@ -220,7 +220,7 @@ public class RequirementUI : MonoBehaviour
     private void ChangeText(TMP_Text tmpText,string txt,float size,Color bgColor)
     {
         //if changed status
-        if(tmpText.text!=null&&tmpText.text!=txt)
+        if(tmpText!=null&&tmpText.text!=txt)
         {
             if (tmpText.text != txt)
             {
