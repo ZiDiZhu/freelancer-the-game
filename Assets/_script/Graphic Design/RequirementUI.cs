@@ -9,14 +9,20 @@ using DG.Tweening;
 //displays UI from DesignRequirement, should attach to same GO
 public class RequirementUI : MonoBehaviour
 {
-    public DesignRequirement dR;
+    //Other Scripts attached to this gameObject
+    private DesignRequirement dR; //must be on same gameObject
 
-    public GameObject mustIncludeColorsUI, banColorUI, numberOfColorsUI, requiredColorSchemeUI;
+    [Header("Dependency - Scene")]
+    public GameObject mustIncludeColorsUI;
+    public GameObject doNotIncludeColorsUI;
+    public GameObject numberOfColorsUI;
+    public GameObject requiredColorSchemeUI;
+    public TMP_Text scoreText;
+    public TMP_Text SubmitButtonText;
+    public Button submitButton;
 
     private TMP_Text missingColorsText, wrongColorsText, numberDifferenceText, requiredColorSchemeText;
 
-    public TMP_Text scoreText,SubmitButtonText;
-    public Button submitButton;
 
     public TMP_Text colorSchemeText,toneText;
 
@@ -25,9 +31,13 @@ public class RequirementUI : MonoBehaviour
 
     public GameObject endScreen; //shows once Submitted.
     public TMP_Text resultText;
-
     // Start is called before the first frame update
     void Awake()
+    {
+        Initialize();
+    }
+
+    private void Initialize()
     {
         dR = GetComponent<DesignRequirement>();
         endScreen.SetActive(false);
@@ -167,14 +177,14 @@ public class RequirementUI : MonoBehaviour
         // "Do Not Include"
         if (dR.bannedColors.Count != 0) //has contain color requirement
         {
-            banColorUI.SetActive(true);
+            doNotIncludeColorsUI.SetActive(true);
             string txt = "Do Not Include: \n";
             foreach (string color in dR.bannedColors)
             {
                 txt += color + " ";
             }
-            banColorUI.transform.GetChild(0).GetChild(0).GetComponent<TMP_Text>().text = txt;
-            wrongColorsText = banColorUI.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>();
+            doNotIncludeColorsUI.transform.GetChild(0).GetChild(0).GetComponent<TMP_Text>().text = txt;
+            wrongColorsText = doNotIncludeColorsUI.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>();
         }
         else
         {

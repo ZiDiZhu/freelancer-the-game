@@ -8,17 +8,36 @@ using UnityEngine.EventSystems;
 //Utility Script that checks if Design fits the requirement
 public class DesignRequirement : MonoBehaviour
 {
-    public CommissionObject commissionObject; //To Do: take requirements from this object
+    //Other Scripts attached to this gameObject
+    private DesignControl designControl;
+    private RequirementUI requirementUI; //displayer script
 
+    [Header("Dependency - Scene")]
     public List<GameObject> canvasElements; //To DO: constant update from the source that contains canvas elements
-    [SerializeField] DesignControl designControl;
-    [SerializeField] RequirementUI requirementUI; //displayer script
-    public List<string> requiredColors,missingColors,bannedColors,wrongColors; //check if contains or does not contain certain color
-    public int minNumberofColors, maxNumberofColors, missingNumberOfColors;//number of colors requiremeny
+
+    [Header("Dependency - Scriptable Object")]
+    public CommissionObject commissionObject; //The scriptable commission Object that contains level requirements
+
+    [Header("Current Commission Information")]
+    public List<string> requiredColors;
+    public List<string> bannedColors;
+    public int minNumberofColors;
+    public int maxNumberofColors;
+
+    [Header("Current Canvas Information")]
+    public List<Color> myColors;
+    public List<string> myColorsNames;
+
+    [Header("Current Canvas Information In Relation to Commission")]
+    public List<string> wrongColors;
+    public List<string> missingColors;
+    public int missingNumberOfColors;
+
+
     public float score;
 
     //current design "combo"s
-    public bool monochromatic, analogous, complementary, splitcomplementary;
+    private bool monochromatic, analogous, complementary, splitcomplementary;
 
     public ColorScheme colorScheme,requiredcolorScheme;
     public enum ColorScheme
@@ -58,6 +77,7 @@ public class DesignRequirement : MonoBehaviour
         requirementUI.UpdateRequirement();
     }
 
+    //assigns the commission object data in this gameobject
     public void AssignRequirementsFromCommissionObject(CommissionObject co)
     {
         requiredColors = co.mustIncludeColors;
@@ -69,7 +89,8 @@ public class DesignRequirement : MonoBehaviour
 
     public void Evaluate()
     {
-        //will give unity an invalid operation exception
+        myColors = GetColorsFromCanvas(canvasElements);
+        myColorsNames = GetColorStringsFromCanvasElemList(canvasElements);
         missingColors = GetMissingColorsFrom(requiredColors);
         wrongColors = GetWrongColorsFrom(bannedColors);
         missingNumberOfColors = GetOutOfRangeNumber(minNumberofColors, maxNumberofColors);
@@ -81,10 +102,10 @@ public class DesignRequirement : MonoBehaviour
 
     public string EvaluateTone()
     {
-        List<string> myColors = GetColorStringsFromCanvasElemList(canvasElements);
+        myColorsNames = GetColorStringsFromCanvasElemList(canvasElements);
         int nOfColors = myColors.Count;
         int temp = 0;
-        foreach(string color in myColors)
+        foreach(string color in myColorsNames)
         {
             if (colortool.ToneOf(color) == "warm")
             {
@@ -215,8 +236,8 @@ public class DesignRequirement : MonoBehaviour
 
     public bool CheckIfAnalogous(List<GameObject> gameObjects)
     {
-        List<string> myColors = GetDistinctColorsFromCanvasElems(gameObjects);
-        if (myColors.Count >= 2 || myColors.Count <= 4)
+        //List<string> myColors = GetDistinctColorsFromCanvasElems(gameObjects);
+        if (myColors.Count >= 2) //needs at least 2 
         {
             foreach (GameObject go in canvasElements)
             {
@@ -224,7 +245,7 @@ public class DesignRequirement : MonoBehaviour
                 bool found = false;
                 foreach (string ac in a)
                 {
-                    if (myColors.Contains(ac)&&ac!=colortool.ColorName(go.GetComponent<Image>().color))
+                    if (myColorsNames.Contains(ac)&&ac!=colortool.ColorName(go.GetComponent<Image>().color))
                     {
                         found = true;
                     }
@@ -302,9 +323,9 @@ public class DesignRequirement : MonoBehaviour
 
         foreach (string color in colors)//for each required color
         {
-            foreach (GameObject elem in canvasElements) //for each canvas element
+            foreach (string colorName in myColorsNames) //for each color in current canvas
             {
-                if (colortool.ColorName(elem.GetComponent<Image>().color) == color && !wrongList.Contains(color))
+                if (colorName == color && !wrongList.Contains(color))
                 {
                     wrongList.Add(color); //cross color off the list if found 
                 }
@@ -324,14 +345,25 @@ public class DesignRequirement : MonoBehaviour
         }
         return 0;
     }
+
+    public List <Color> GetColorsFromCanvas(List<GameObject> go)
+    {
+        List<Color> colors = new List<Color>();
+        foreach (GameObject elem in go)
+        {
+            colors.Add(elem.GetComponent<Image>().color);
+        }
+        return colors;
+    }
+
     public List<string> GetColorStringsFromCanvasElemList(List<GameObject> go)
     {
-        List<string> myColors = new List<string>();
+        List<string> colors = new List<string>();
         foreach(GameObject elem in go)
         {
-            myColors.Add(colortool.ColorName(elem.GetComponent<Image>().color));
+            colors.Add(colortool.ColorName(elem.GetComponent<Image>().color));
         }
-        return myColors;
+        return colors;
     }
     public List<string> GetDistinctColorsFromCanvasElems(List<GameObject> go)
     {
