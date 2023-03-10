@@ -23,3 +23,5 @@ Freelancer has been in development since February 2023 using Unity Engine 2021.3
 - [Wiki](https://github.com/ZiDiZhu/freelancer-the-game/wiki)
 
 (More Info Coming Soon)
+
+<img src="https://user-images.githubusercontent.com/40129612/224224654-2a3c13c3-59d8-40d7-808b-db67298f2ef6.JPG"  width="500">
