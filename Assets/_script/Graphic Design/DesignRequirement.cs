@@ -25,8 +25,9 @@ public class DesignRequirement : MonoBehaviour
     public int maxNumberofColors;
 
     [Header("Current Canvas Information")]
-    public List<Color> myColors;
+    public List<Color> myColors; 
     public List<string> myColorsNames;
+    public List<string> myColorsNamesDistinct;
 
     [Header("Current Canvas Information In Relation to Commission")]
     public List<string> wrongColors;
@@ -62,8 +63,8 @@ public class DesignRequirement : MonoBehaviour
     private void Awake()
     {
         requirementUI = GetComponent<RequirementUI>();
-        colortool = new ColorTool();
         designControl = GetComponent<DesignControl>();
+        colortool = new ColorTool();
     }
 
     ColorTool colortool; //I/O for color info
@@ -90,9 +91,12 @@ public class DesignRequirement : MonoBehaviour
     public void Evaluate()
     {
         myColors = GetColorsFromCanvas(canvasElements);
-        myColorsNames = GetColorStringsFromCanvasElemList(canvasElements);
-        missingColors = GetMissingColorsFrom(requiredColors);
+        myColorsNames = GetStringsFromColors(myColors);
+        myColorsNamesDistinct = GetDistinctElems(myColorsNames);
+
+        missingColors = GetMissingElements(requiredColors,myColorsNamesDistinct);
         wrongColors = GetWrongColorsFrom(bannedColors);
+
         missingNumberOfColors = GetOutOfRangeNumber(minNumberofColors, maxNumberofColors);
 
         EvaluateCombos();
@@ -100,9 +104,9 @@ public class DesignRequirement : MonoBehaviour
         score = PercentageScore();
     }
 
+
     public string EvaluateTone()
     {
-        myColorsNames = GetColorStringsFromCanvasElemList(canvasElements);
         int nOfColors = myColors.Count;
         int temp = 0;
         foreach(string color in myColorsNames)
@@ -142,15 +146,14 @@ public class DesignRequirement : MonoBehaviour
 
     public void EvaluateCombos()
     {
-        List<string> myColors = GetDistinctColorsFromCanvasElems(canvasElements);
-        int nOfColors = myColors.Count;
+        int nOfColors = myColorsNamesDistinct.Count;
 
         //check if monochromatic
         if(nOfColors == 1)
         {
             monochromatic = true;
             colorScheme = ColorScheme.Monochromatic;
-        }else if (myColors.Count == 2&&(myColors.Contains("black")||myColors.Contains("white")))
+        }else if (nOfColors == 2&&(myColorsNamesDistinct.Contains("black")||myColorsNamesDistinct.Contains("white")))
         {
             monochromatic = true;
             colorScheme = ColorScheme.Monochromatic;
@@ -177,15 +180,15 @@ public class DesignRequirement : MonoBehaviour
         }
 
         //check if complementary
-        if(nOfColors >= 3 && !myColors.Contains("black") && !myColors.Contains("gray") && !myColors.Contains("white"))
+        if(nOfColors >= 3 && !myColorsNamesDistinct.Contains("black") && !myColorsNamesDistinct.Contains("gray") && !myColorsNamesDistinct.Contains("white"))
         {
             bool isSplit = false;
-            foreach(string color in myColors)
+            foreach(string color in myColorsNamesDistinct)
             {
                 foreach (string c in colortool.AnalogousOf(colortool.ComplementaryOf(color)))
                 {
                     isSplit = false;
-                    if (myColors.Contains(c))
+                    if (myColorsNamesDistinct.Contains(c))
                     {
                         isSplit = true;
                     }
@@ -199,12 +202,12 @@ public class DesignRequirement : MonoBehaviour
         }
 
         //check if is triad
-        if (nOfColors == 3&&!myColors.Contains("black")&&!myColors.Contains("gray")&&!myColors.Contains("white"))
+        if (nOfColors == 3&&!myColorsNamesDistinct.Contains("black")&&!myColorsNamesDistinct.Contains("gray")&&!myColorsNamesDistinct.Contains("white"))
         {
             bool triad = true;
-            foreach(string color in myColors)
+            foreach(string color in myColorsNamesDistinct)
             {
-                if (myColors.Contains(colortool.ComplementaryOf(color)))
+                if (myColorsNamesDistinct.Contains(colortool.ComplementaryOf(color)))
                 {
                     triad = false;
                 }
@@ -216,12 +219,12 @@ public class DesignRequirement : MonoBehaviour
         }
 
         //check if is tetradic
-        if (nOfColors == 4 && !myColors.Contains("black") && !myColors.Contains("gray") && !myColors.Contains("white"))
+        if (nOfColors == 4 && !myColorsNamesDistinct.Contains("black") && !myColorsNamesDistinct.Contains("gray") && !myColorsNamesDistinct.Contains("white"))
         {
             bool triad = true;
-            foreach (string color in myColors)
+            foreach (string color in myColorsNamesDistinct)
             {
-                if (!myColors.Contains(colortool.ComplementaryOf(color)))
+                if (!myColorsNamesDistinct.Contains(colortool.ComplementaryOf(color)))
                 {
                     triad = false;
                 }
@@ -261,8 +264,7 @@ public class DesignRequirement : MonoBehaviour
 
     public bool CheckIfComplementary(List<GameObject> gameObjects)
     {
-        List<string> myColors = GetDistinctColorsFromCanvasElems(gameObjects);
-        if(myColors.Count == 2 || (myColors.Count == 3 && (myColors.Contains("black") || myColors.Contains("white") || myColors.Contains("gray"))))
+        if(myColorsNamesDistinct.Count == 2 || (myColorsNamesDistinct.Count == 3 && (myColorsNamesDistinct.Contains("black") || myColorsNamesDistinct.Contains("white") || myColorsNamesDistinct.Contains("gray"))))
         {
             foreach(GameObject go in gameObjects)
             {
@@ -270,7 +272,7 @@ public class DesignRequirement : MonoBehaviour
                 List<string> simlarColors = colortool.AnalogousOf(go.GetComponent<Image>().color);
                 foreach(string color in simlarColors)
                 {
-                    if (myColors.Contains(colortool.ComplementaryOf(color)))
+                    if (myColorsNamesDistinct.Contains(colortool.ComplementaryOf(color)))
                     {
                         return true;
                     }
@@ -286,7 +288,7 @@ public class DesignRequirement : MonoBehaviour
     public float PercentageScore()
     {
         float totalPossibleScore = requiredColors.Count + bannedColors.Count;
-        if (requiredcolorScheme != null)
+        if (requiredcolorScheme != ColorScheme.None)
         {
             totalPossibleScore += 3;
         }
@@ -299,24 +301,25 @@ public class DesignRequirement : MonoBehaviour
         return myScore / totalPossibleScore;
     }
 
-    //In: required colors; Out: missing colors
-    //if returned null, its a success.
-    public List<string> GetMissingColorsFrom(List<string> colors)
+    //Generic Function
+    //Param 1: The Requirement, Param 2 : Your List
+    //Compares second list to first list and see whats missing
+    public List<T> GetMissingElements<T>(List<T> requiredList, List<T> myList)
     {
-        List<string> missingList = new List<string>(requiredColors);//deep clone
+        List<T> missingElems = new List<T>();
 
-        foreach (string color in colors)//for each required color
+        foreach(T elem in requiredList)
         {
-            foreach (GameObject elem in canvasElements) //for each canvas element
+            if (!myList.Contains(elem))
             {
-                if (colortool.ColorName(elem.GetComponent<Image>().color) == color)
-                {
-                    missingList.Remove(color); //cross color off the list if found 
-                }
+                missingElems.Add(elem);
             }
         }
-        return missingList;
+
+        return missingElems;
     }
+
+
     public List<string> GetWrongColorsFrom(List<string> colors)
     {
         List<string> wrongList = new List<string>();
@@ -331,11 +334,13 @@ public class DesignRequirement : MonoBehaviour
                 }
             }
         }
+
+
         return wrongList;
     }
     public int GetOutOfRangeNumber(int min, int max)
     {
-        int n = GetDistinctColorsFromCanvasElems(canvasElements).Count;
+        int n = GetDistinctElems(myColorsNames).Count;
         if (n > max)
         {
             return max -n;
@@ -356,27 +361,30 @@ public class DesignRequirement : MonoBehaviour
         return colors;
     }
 
-    public List<string> GetColorStringsFromCanvasElemList(List<GameObject> go)
+
+    public List<string> GetStringsFromColors(List<Color> colors)
     {
-        List<string> colors = new List<string>();
-        foreach(GameObject elem in go)
+        List<string> colorNames = new List<string>();
+        foreach(Color color in colors)
         {
-            colors.Add(colortool.ColorName(elem.GetComponent<Image>().color));
+            colorNames.Add(colortool.ColorName(color));
         }
-        return colors;
-    }
-    public List<string> GetDistinctColorsFromCanvasElems(List<GameObject> go)
-    {
-        List<string> myColors = new List<string>();
-        foreach (GameObject elem in go)
-        {
-            if (!myColors.Contains(colortool.ColorName(elem.GetComponent<Image>().color)))
-            {
-                myColors.Add(colortool.ColorName(elem.GetComponent<Image>().color));
-            }
-        }
-        return myColors;
+        return colorNames;
+
     }
 
+    //Generic Get Distinct Elements Function
+    public List<T> GetDistinctElems<T>(List<T> list)
+    {
+        List<T> distinctElems = new List<T>();
+        foreach(T elem in list)
+        {
+            if (!distinctElems.Contains(elem))
+            {
+                distinctElems.Add(elem);
+            }
+        }
+        return distinctElems;
+    }
 
 }

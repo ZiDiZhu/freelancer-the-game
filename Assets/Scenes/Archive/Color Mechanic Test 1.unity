@@ -4857,6 +4857,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c25d2e7de82152489dd2125b539d116, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canvasElements: []
   commissionObject: {fileID: 11400000, guid: cdd74255f875f6a4188c3413543c07cd, type: 2}
   requiredColors:
   - yellow
@@ -4868,10 +4869,12 @@ MonoBehaviour:
   - gray
   minNumberofColors: 5
   maxNumberofColors: 5
+  myColors: []
+  myColorsNames: []
+  myColorsNamesDistinct: []
   wrongColors: []
   missingColors: []
   missingNumberOfColors: 0
-  canvasElements: []
   score: 0
   colorScheme: 0
   requiredcolorScheme: 0
