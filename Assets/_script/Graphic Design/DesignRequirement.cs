@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
+using Util;
 
 //Utility Script that checks if Design fits the requirement
 public class DesignRequirement : MonoBehaviour
@@ -76,6 +77,7 @@ public class DesignRequirement : MonoBehaviour
         
         requirementUI.InitializeRequirementList();
         requirementUI.UpdateRequirement();
+
     }
 
     //assigns the commission object data in this gameobject
@@ -92,7 +94,7 @@ public class DesignRequirement : MonoBehaviour
     {
         myColors = GetColorsFromCanvas(canvasElements);
         myColorsNames = GetStringsFromColors(myColors);
-        myColorsNamesDistinct = GetDistinctElems(myColorsNames);
+        myColorsNamesDistinct = ListUtils.GetDistinctElems(myColorsNames);
 
         missingColors = GetMissingElements(requiredColors,myColorsNamesDistinct);
         wrongColors = GetWrongColorsFrom(bannedColors);
@@ -340,7 +342,7 @@ public class DesignRequirement : MonoBehaviour
     }
     public int GetOutOfRangeNumber(int min, int max)
     {
-        int n = GetDistinctElems(myColorsNames).Count;
+        int n = ListUtils.GetDistinctElems(myColorsNames).Count;
         if (n > max)
         {
             return max -n;
@@ -373,18 +375,5 @@ public class DesignRequirement : MonoBehaviour
 
     }
 
-    //Generic Get Distinct Elements Function
-    public List<T> GetDistinctElems<T>(List<T> list)
-    {
-        List<T> distinctElems = new List<T>();
-        foreach(T elem in list)
-        {
-            if (!distinctElems.Contains(elem))
-            {
-                distinctElems.Add(elem);
-            }
-        }
-        return distinctElems;
-    }
 
 }
