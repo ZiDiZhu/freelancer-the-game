@@ -95,7 +95,8 @@ public class RequirementUI : MonoBehaviour
         }
         if(dR.minNumberofColors!= -1 && dR.maxNumberofColors!= -1)
         {
-            int n = dR.GetOutOfRangeNumber(dR.minNumberofColors, dR.maxNumberofColors);
+            int n = dR.missingNumberOfColors;
+
             string txt ="";
             if (n == 0)
             {

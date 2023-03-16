@@ -4868,28 +4868,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c25d2e7de82152489dd2125b539d116, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commissionObject: {fileID: 11400000, guid: cdd74255f875f6a4188c3413543c07cd, type: 2}
   canvasElements: []
-  designControl: {fileID: 0}
-  requirementUI: {fileID: 0}
+  commissionObject: {fileID: 11400000, guid: cdd74255f875f6a4188c3413543c07cd, type: 2}
   requiredColors:
   - yellow
   - blue
   - green
-  missingColors: []
   bannedColors:
   - black
   - white
   - gray
-  wrongColors: []
   minNumberofColors: 5
   maxNumberofColors: 5
+  myColors: []
+  myColorsNames: []
+  myColorsNamesDistinct: []
+  wrongColors: []
+  missingColors: []
   missingNumberOfColors: 0
   score: 0
-  monochromatic: 0
-  analogous: 0
-  complementary: 0
-  splitcomplementary: 0
   colorScheme: 0
   requiredcolorScheme: 0
 --- !u!114 &1128486523
@@ -4904,9 +4901,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f2d4280e1480a143998e0db1c9c42da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dR: {fileID: 0}
   mustIncludeColorsUI: {fileID: 725589751}
-  banColorUI: {fileID: 1141498755}
+  doNotIncludeColorsUI: {fileID: 1141498755}
   numberOfColorsUI: {fileID: 1912954221}
   requiredColorSchemeUI: {fileID: 0}
   scoreText: {fileID: 529312689}

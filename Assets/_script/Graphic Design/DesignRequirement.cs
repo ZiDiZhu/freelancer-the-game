@@ -96,10 +96,10 @@ public class DesignRequirement : MonoBehaviour
         myColorsNames = GetStringsFromColors(myColors);
         myColorsNamesDistinct = ListUtils.GetDistinctElems(myColorsNames);
 
-        missingColors = GetMissingElements(requiredColors,myColorsNamesDistinct);
-        wrongColors = GetWrongColorsFrom(bannedColors);
+        missingColors = ListUtils.GetMissingElements(requiredColors,myColorsNamesDistinct);
+        wrongColors = ListUtils.GetSharedListElements(myColorsNamesDistinct,bannedColors);
 
-        missingNumberOfColors = GetOutOfRangeNumber(minNumberofColors, maxNumberofColors);
+        missingNumberOfColors = MathUtils.GetDistanceFromRange(minNumberofColors,maxNumberofColors,myColorsNamesDistinct.Count);
 
         EvaluateCombos();
 
@@ -301,56 +301,6 @@ public class DesignRequirement : MonoBehaviour
             myScore -= 3;
         }
         return myScore / totalPossibleScore;
-    }
-
-    //Generic Function
-    //Param 1: The Requirement, Param 2 : Your List
-    //Compares second list to first list and see whats missing
-    public List<T> GetMissingElements<T>(List<T> requiredList, List<T> myList)
-    {
-        List<T> missingElems = new List<T>();
-
-        foreach(T elem in requiredList)
-        {
-            if (!myList.Contains(elem))
-            {
-                missingElems.Add(elem);
-            }
-        }
-
-        return missingElems;
-    }
-
-
-    public List<string> GetWrongColorsFrom(List<string> colors)
-    {
-        List<string> wrongList = new List<string>();
-
-        foreach (string color in colors)//for each required color
-        {
-            foreach (string colorName in myColorsNames) //for each color in current canvas
-            {
-                if (colorName == color && !wrongList.Contains(color))
-                {
-                    wrongList.Add(color); //cross color off the list if found 
-                }
-            }
-        }
-
-
-        return wrongList;
-    }
-    public int GetOutOfRangeNumber(int min, int max)
-    {
-        int n = ListUtils.GetDistinctElems(myColorsNames).Count;
-        if (n > max)
-        {
-            return max -n;
-        }else if (n < min)
-        {
-            return min - n;
-        }
-        return 0;
     }
 
     public List <Color> GetColorsFromCanvas(List<GameObject> go)
