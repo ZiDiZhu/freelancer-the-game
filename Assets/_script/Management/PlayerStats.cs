@@ -5,23 +5,21 @@ using UnityEngine.UI;
 using TMPro;
 
 [System.Serializable]
-public class Stat
+public struct Record
 {
-    public string name;
-    public double value;
-    public double maxValue;
-    public Stat(string n, double v, double m)
-    {
-        name = n;
-        value = v;
-        maxValue = m;
-    }
+    int stars; //out of 5
+
 }
 
-public class PlayerStats : MonoBehaviour
+//draft script for player's score-tracking
+public class PlayerStats : ScriptableObject
 {
 
-    public List<Stat> stats;
+    public List<Commission> pastCommissions;
+
+    public int wallet;
+    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,4 +31,15 @@ public class PlayerStats : MonoBehaviour
     {
         
     }
+
+    public void CompleteLevel()
+    {
+
+    }
+
+    public void ResetSave()
+    {
+
+    }
+
 }

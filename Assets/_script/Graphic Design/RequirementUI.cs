@@ -10,10 +10,12 @@ using Util;
 //displays UI from DesignRequirement, should attach to same GO
 public class RequirementUI : MonoBehaviour
 {
+    public Image clientProfile,playerProfile;
+
+
     //Other Scripts attached to this gameObject
     private DesignRequirement dR; //must be on same gameObject
 
-    [Header("Dependency - Scene")]
     public GameObject mustIncludeColorsUI;
     public GameObject doNotIncludeColorsUI;
     public GameObject numberOfColorsUI;
@@ -39,11 +41,14 @@ public class RequirementUI : MonoBehaviour
 
     private void Initialize()
     {
+
         dR = GetComponent<DesignRequirement>();
         endScreen.SetActive(false);
         submitButton.interactable = true;
         submitButton.onClick.AddListener(() => UpdateEndScreen());
         UpdateRequirement();
+
+        clientProfile.sprite = dR.commissionObject.client.pfp;
     }
 
     public void UpdateEndScreen()
@@ -67,8 +72,10 @@ public class RequirementUI : MonoBehaviour
             {
                 txt += " " + color;
             }
-            if(missingColorsText!=null)
+            if (missingColorsText != null)
+            {
                 ChangeText(missingColorsText, txt, normalTextFontSize, Color.white);
+            }
         }
 
         //no wrong colors

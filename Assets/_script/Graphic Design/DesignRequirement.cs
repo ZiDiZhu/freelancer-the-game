@@ -92,18 +92,21 @@ public class DesignRequirement : MonoBehaviour
 
     public void Evaluate()
     {
+        EvaluateColorRequirements();
+        
+        EvaluateColorScheme();
+
+    }
+
+
+    public void EvaluateColorRequirements()
+    {
         myColors = GetColorsFromCanvas(canvasElements);
         myColorsNames = GetStringsFromColors(myColors);
         myColorsNamesDistinct = ListUtils.GetDistinctElems(myColorsNames);
-
-        missingColors = ListUtils.GetMissingElements(requiredColors,myColorsNamesDistinct);
-        wrongColors = ListUtils.GetSharedListElements(myColorsNamesDistinct,bannedColors);
-
-        missingNumberOfColors = MathUtils.GetDistanceFromRange(minNumberofColors,maxNumberofColors,myColorsNamesDistinct.Count);
-
-        EvaluateCombos();
-
-        score = PercentageScore();
+        missingColors = ListUtils.GetMissingElements(requiredColors, myColorsNamesDistinct);
+        wrongColors = ListUtils.GetSharedListElements(myColorsNamesDistinct, bannedColors);
+        missingNumberOfColors = MathUtils.GetDistanceFromRange(minNumberofColors, maxNumberofColors, myColorsNamesDistinct.Count);
     }
 
 
@@ -146,7 +149,7 @@ public class DesignRequirement : MonoBehaviour
     }
 
 
-    public void EvaluateCombos()
+    public void EvaluateColorScheme()
     {
         int nOfColors = myColorsNamesDistinct.Count;
 
