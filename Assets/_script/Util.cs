@@ -70,7 +70,7 @@ namespace Util
             }
             return 0;
         }
-        public float StandardDeviation(float[] x)
+        public static float StandardDeviation(float[] x)
         {
             float pv = 0; //population variance
             float mu = MeanValue(x);
@@ -81,11 +81,11 @@ namespace Util
             pv /= x.Length;
             return Mathf.Sqrt(pv);
         }
-        public float MeanValue(float[] x) //average
+        public static float MeanValue(float[] x) //average
         {
             return Sum(x) / (x.Length);
         }
-        public float Sum(float[] x)
+        public static float Sum(float[] x)
         {
             float s = 0;
             for (int i = 0; i < x.Length; i++)
@@ -95,6 +95,20 @@ namespace Util
             return s;
         }
 
+        //map float 0-1 to int 1-5
+        public static int PecentageToOutOfFive(float f)
+        {
+            int score = Mathf.FloorToInt(f*5)+1;
+            if (score == 6)//100%
+            {
+                score = 5;//5 star i max
+            }
+            if (score <= 0)
+            {
+                score = 1;//1 star is lowest
+            }
+            return score;
+        }
 
     }
 

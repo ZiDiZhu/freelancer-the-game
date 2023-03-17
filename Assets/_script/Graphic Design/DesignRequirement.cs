@@ -286,7 +286,8 @@ public class DesignRequirement : MonoBehaviour
     }
     
 
-
+    //to do: Map this to int 1-5 
+    
     public float PercentageScore()
     {
         float totalPossibleScore = requiredColors.Count + bannedColors.Count;
@@ -302,6 +303,7 @@ public class DesignRequirement : MonoBehaviour
         }
         return myScore / totalPossibleScore;
     }
+
 
     public List <Color> GetColorsFromCanvas(List<GameObject> go)
     {

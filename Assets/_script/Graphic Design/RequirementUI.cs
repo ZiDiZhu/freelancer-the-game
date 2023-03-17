@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
 using DG.Tweening;
+using Util;
 
 //displays UI from DesignRequirement, should attach to same GO
 public class RequirementUI : MonoBehaviour
@@ -17,7 +18,6 @@ public class RequirementUI : MonoBehaviour
     public GameObject doNotIncludeColorsUI;
     public GameObject numberOfColorsUI;
     public GameObject requiredColorSchemeUI;
-    public TMP_Text scoreText;
     public TMP_Text SubmitButtonText;
     public Button submitButton;
 
@@ -41,6 +41,7 @@ public class RequirementUI : MonoBehaviour
     {
         dR = GetComponent<DesignRequirement>();
         endScreen.SetActive(false);
+        submitButton.interactable = true;
         submitButton.onClick.AddListener(() => UpdateEndScreen());
         UpdateRequirement();
     }
@@ -48,17 +49,8 @@ public class RequirementUI : MonoBehaviour
     public void UpdateEndScreen()
     {
         endScreen.SetActive(true);
-        if (dR.score == 1)
-        {
-            resultText.text = "Perfect Job!";
-        }else if (dR.score <= 1 && dR.score >= 0.6)
-        {
-            resultText.text = "OK job!";
-        }
-        else
-        {
-            resultText.text = "That Was BAD!";
-        }
+        
+        resultText.text = MathUtils.PecentageToOutOfFive(dR.PercentageScore())+" Stars!";
     }
 
     public void UpdateRequirement()
@@ -118,7 +110,6 @@ public class RequirementUI : MonoBehaviour
 
         colorSchemeText.text ="Color Scheme: "+ dR.colorScheme.ToString();
         toneText.text = "Tone: " + dR.EvaluateTone();
-        scoreText.text = "Score: "+dR.score*100 + "%";
 
         //if fits the color scheme
         if (dR.requiredcolorScheme != DesignRequirement.ColorScheme.None)
@@ -133,25 +124,6 @@ public class RequirementUI : MonoBehaviour
             }
         }
         
-
-        if (dR.score < 0.6)
-        {
-            submitButton.interactable = false;
-        }
-        else
-        {
-            submitButton.interactable = true;
-            if (dR.score == 1)
-            {
-                //change button style
-                submitButton.transform.parent.GetComponent<Image>().color = Color.green;
-            }
-            else
-            {
-                submitButton.GetComponent<Image>().color = Color.white;
-            }
-        }
-
         
     }
 
@@ -219,10 +191,6 @@ public class RequirementUI : MonoBehaviour
             requiredColorSchemeUI.SetActive(true);
             requiredColorSchemeText = requiredColorSchemeUI.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>();
             requiredColorSchemeUI.transform.GetChild(0).GetChild(0).GetComponent<TMP_Text>().text = "Required Color scheme: \n" + dR.requiredcolorScheme;
-        }
-        else
-        {
-            //requiredColorSchemeUI.SetActive(false);
         }
 
     }
