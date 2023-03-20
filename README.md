@@ -17,7 +17,7 @@ Overall, Freelancer promises to be an engaging and challenging game that combine
 Freelancer has been in development since February 2023 using Unity Engine 2021.3.6.f. The game's design, coding, art, and story are all the work of Zi Di Zhu.
 
 ## Zi Di: The Game Developer
-<img src="https://user-images.githubusercontent.com/40129612/226217955-5c8f691a-7052-4ea5-9ad9-fb85999cc566.png"  width="200">
+<img src="https://user-images.githubusercontent.com/40129612/226217955-5c8f691a-7052-4ea5-9ad9-fb85999cc566.png"  width="200"><br>
 Zi Di Zhu is a multidisciplinary artist and programmer whose work blends technology and art to create immersive and interactive experiences. With a focus on experimental puzzle games, procedural audiovisual generators, and interactive fictions. Zi Di explores the potential of technology to push creative boundaries and create unusual experiences.
 
 ## Links
