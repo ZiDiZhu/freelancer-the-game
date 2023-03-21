@@ -5059,15 +5059,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colorPicker: {fileID: 0}
-  designRequirement: {fileID: 0}
-  requirementUI: {fileID: 0}
+  designRequirement: {fileID: 1128486522}
+  requirementUI: {fileID: 1128486523}
   canvasGroup: {fileID: 739972745}
   canvasElements:
   - {fileID: 1331352998}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 1702700647}
+  - {fileID: 2144895055}
+  - {fileID: 900125516}
   dragBtn: {fileID: 857307607}
   bucketBtn: {fileID: 2120590904}
   dragCursor: {fileID: 2800000, guid: b54b5deab2300384b80e29737cc4a6f8, type: 3}
@@ -5100,28 +5099,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c25d2e7de82152489dd2125b539d116, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commissionObject: {fileID: 11400000, guid: 5b6532aef80ed8c4f8908bc54d784ca4, type: 2}
   canvasElements: []
-  designControl: {fileID: 0}
-  requirementUI: {fileID: 0}
+  commissionObject: {fileID: 11400000, guid: 5b6532aef80ed8c4f8908bc54d784ca4, type: 2}
   requiredColors:
   - yellow
   - blue
   - green
-  missingColors: []
   bannedColors:
   - black
   - white
   - gray
-  wrongColors: []
   minNumberofColors: 5
   maxNumberofColors: 5
+  myColors: []
+  myColorsNames: []
+  myColorsNamesDistinct: []
+  wrongColors: []
+  missingColors: []
   missingNumberOfColors: 0
   score: 0
-  monochromatic: 0
-  analogous: 0
-  complementary: 0
-  splitcomplementary: 0
   colorScheme: 0
   requiredcolorScheme: 0
 --- !u!114 &1128486523
@@ -5136,12 +5132,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f2d4280e1480a143998e0db1c9c42da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dR: {fileID: 0}
+  clientProfile: {fileID: 1830332829}
+  playerProfile: {fileID: 0}
   mustIncludeColorsUI: {fileID: 725589751}
-  banColorUI: {fileID: 1141498755}
+  doNotIncludeColorsUI: {fileID: 1141498755}
   numberOfColorsUI: {fileID: 1912954221}
   requiredColorSchemeUI: {fileID: 1044558163}
-  scoreText: {fileID: 529312689}
   SubmitButtonText: {fileID: 1771008721}
   submitButton: {fileID: 1680663195}
   colorSchemeText: {fileID: 509275604}
@@ -17064,51 +17060,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72a84c681bd62fe44bd7b45a2baa0027, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
-  isPaused: 0
-  sprytSineData: {fileID: 11400000, guid: 3c9fdf95733d15746b1fa75291711153, type: 2}
-  rect: {fileID: 0}
-  sineX:
-    divisor: 0
-    magnitude: 0
-    duration: 0
-    updateType: 0
-    effectActive: 0
-    countDown: 0
-    index: 0
-  sineY:
-    divisor: 0
-    magnitude: 0
-    duration: 0
-    updateType: 0
-    effectActive: 0
-    countDown: 0
-    index: 0
-  sineScaleX:
-    divisor: 0
-    magnitude: 0
-    duration: 0
-    updateType: 0
-    effectActive: 0
-    countDown: 0
-    index: 0
-  sineScaleY:
-    divisor: 0
-    magnitude: 0
-    duration: 0
-    updateType: 0
-    effectActive: 0
-    countDown: 0
-    index: 0
-  sineAngle:
-    divisor: 0
-    magnitude: 0
-    duration: 0
-    updateType: 0
-    effectActive: 0
-    countDown: 0
-    index: 0
-  spriteFrames: []
 --- !u!222 &276739569224710393
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -17814,51 +17765,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72a84c681bd62fe44bd7b45a2baa0027, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
-  isPaused: 0
-  sprytSineData: {fileID: 11400000, guid: 3c9fdf95733d15746b1fa75291711153, type: 2}
-  rect: {fileID: 0}
-  sineX:
-    divisor: 0
-    magnitude: 0
-    duration: 0
-    updateType: 0
-    effectActive: 0
-    countDown: 0
-    index: 0
-  sineY:
-    divisor: 0
-    magnitude: 0
-    duration: 0
-    updateType: 0
-    effectActive: 0
-    countDown: 0
-    index: 0
-  sineScaleX:
-    divisor: 0
-    magnitude: 0
-    duration: 0
-    updateType: 0
-    effectActive: 0
-    countDown: 0
-    index: 0
-  sineScaleY:
-    divisor: 0
-    magnitude: 0
-    duration: 0
-    updateType: 0
-    effectActive: 0
-    countDown: 0
-    index: 0
-  sineAngle:
-    divisor: 0
-    magnitude: 0
-    duration: 0
-    updateType: 0
-    effectActive: 0
-    countDown: 0
-    index: 0
-  spriteFrames: []
 --- !u!222 &276739569563461766
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -18292,51 +18198,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72a84c681bd62fe44bd7b45a2baa0027, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
-  isPaused: 0
-  sprytSineData: {fileID: 11400000, guid: 3c9fdf95733d15746b1fa75291711153, type: 2}
-  rect: {fileID: 0}
-  sineX:
-    divisor: 0
-    magnitude: 0
-    duration: 0
-    updateType: 0
-    effectActive: 0
-    countDown: 0
-    index: 0
-  sineY:
-    divisor: 0
-    magnitude: 0
-    duration: 0
-    updateType: 0
-    effectActive: 0
-    countDown: 0
-    index: 0
-  sineScaleX:
-    divisor: 0
-    magnitude: 0
-    duration: 0
-    updateType: 0
-    effectActive: 0
-    countDown: 0
-    index: 0
-  sineScaleY:
-    divisor: 0
-    magnitude: 0
-    duration: 0
-    updateType: 0
-    effectActive: 0
-    countDown: 0
-    index: 0
-  sineAngle:
-    divisor: 0
-    magnitude: 0
-    duration: 0
-    updateType: 0
-    effectActive: 0
-    countDown: 0
-    index: 0
-  spriteFrames: []
 --- !u!222 &276739569638714642
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -19442,51 +19303,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72a84c681bd62fe44bd7b45a2baa0027, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
-  isPaused: 0
-  sprytSineData: {fileID: 11400000, guid: 3c9fdf95733d15746b1fa75291711153, type: 2}
-  rect: {fileID: 0}
-  sineX:
-    divisor: 0
-    magnitude: 0
-    duration: 0
-    updateType: 0
-    effectActive: 0
-    countDown: 0
-    index: 0
-  sineY:
-    divisor: 0
-    magnitude: 0
-    duration: 0
-    updateType: 0
-    effectActive: 0
-    countDown: 0
-    index: 0
-  sineScaleX:
-    divisor: 0
-    magnitude: 0
-    duration: 0
-    updateType: 0
-    effectActive: 0
-    countDown: 0
-    index: 0
-  sineScaleY:
-    divisor: 0
-    magnitude: 0
-    duration: 0
-    updateType: 0
-    effectActive: 0
-    countDown: 0
-    index: 0
-  sineAngle:
-    divisor: 0
-    magnitude: 0
-    duration: 0
-    updateType: 0
-    effectActive: 0
-    countDown: 0
-    index: 0
-  spriteFrames: []
 --- !u!222 &276739570152221713
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -20065,51 +19881,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72a84c681bd62fe44bd7b45a2baa0027, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
-  isPaused: 0
-  sprytSineData: {fileID: 11400000, guid: 3c9fdf95733d15746b1fa75291711153, type: 2}
-  rect: {fileID: 0}
-  sineX:
-    divisor: 0
-    magnitude: 0
-    duration: 0
-    updateType: 0
-    effectActive: 0
-    countDown: 0
-    index: 0
-  sineY:
-    divisor: 0
-    magnitude: 0
-    duration: 0
-    updateType: 0
-    effectActive: 0
-    countDown: 0
-    index: 0
-  sineScaleX:
-    divisor: 0
-    magnitude: 0
-    duration: 0
-    updateType: 0
-    effectActive: 0
-    countDown: 0
-    index: 0
-  sineScaleY:
-    divisor: 0
-    magnitude: 0
-    duration: 0
-    updateType: 0
-    effectActive: 0
-    countDown: 0
-    index: 0
-  sineAngle:
-    divisor: 0
-    magnitude: 0
-    duration: 0
-    updateType: 0
-    effectActive: 0
-    countDown: 0
-    index: 0
-  spriteFrames: []
 --- !u!222 &276739570428663976
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -20651,51 +20422,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72a84c681bd62fe44bd7b45a2baa0027, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
-  isPaused: 0
-  sprytSineData: {fileID: 11400000, guid: 3c9fdf95733d15746b1fa75291711153, type: 2}
-  rect: {fileID: 0}
-  sineX:
-    divisor: 0
-    magnitude: 0
-    duration: 0
-    updateType: 0
-    effectActive: 0
-    countDown: 0
-    index: 0
-  sineY:
-    divisor: 0
-    magnitude: 0
-    duration: 0
-    updateType: 0
-    effectActive: 0
-    countDown: 0
-    index: 0
-  sineScaleX:
-    divisor: 0
-    magnitude: 0
-    duration: 0
-    updateType: 0
-    effectActive: 0
-    countDown: 0
-    index: 0
-  sineScaleY:
-    divisor: 0
-    magnitude: 0
-    duration: 0
-    updateType: 0
-    effectActive: 0
-    countDown: 0
-    index: 0
-  sineAngle:
-    divisor: 0
-    magnitude: 0
-    duration: 0
-    updateType: 0
-    effectActive: 0
-    countDown: 0
-    index: 0
-  spriteFrames: []
 --- !u!222 &276739570511532748
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -21071,51 +20797,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72a84c681bd62fe44bd7b45a2baa0027, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
-  isPaused: 0
-  sprytSineData: {fileID: 11400000, guid: 3c9fdf95733d15746b1fa75291711153, type: 2}
-  rect: {fileID: 0}
-  sineX:
-    divisor: 0
-    magnitude: 0
-    duration: 0
-    updateType: 0
-    effectActive: 0
-    countDown: 0
-    index: 0
-  sineY:
-    divisor: 0
-    magnitude: 0
-    duration: 0
-    updateType: 0
-    effectActive: 0
-    countDown: 0
-    index: 0
-  sineScaleX:
-    divisor: 0
-    magnitude: 0
-    duration: 0
-    updateType: 0
-    effectActive: 0
-    countDown: 0
-    index: 0
-  sineScaleY:
-    divisor: 0
-    magnitude: 0
-    duration: 0
-    updateType: 0
-    effectActive: 0
-    countDown: 0
-    index: 0
-  sineAngle:
-    divisor: 0
-    magnitude: 0
-    duration: 0
-    updateType: 0
-    effectActive: 0
-    countDown: 0
-    index: 0
-  spriteFrames: []
 --- !u!222 &276739570584395349
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -21421,51 +21102,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72a84c681bd62fe44bd7b45a2baa0027, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
-  isPaused: 0
-  sprytSineData: {fileID: 11400000, guid: 3c9fdf95733d15746b1fa75291711153, type: 2}
-  rect: {fileID: 0}
-  sineX:
-    divisor: 0
-    magnitude: 0
-    duration: 0
-    updateType: 0
-    effectActive: 0
-    countDown: 0
-    index: 0
-  sineY:
-    divisor: 0
-    magnitude: 0
-    duration: 0
-    updateType: 0
-    effectActive: 0
-    countDown: 0
-    index: 0
-  sineScaleX:
-    divisor: 0
-    magnitude: 0
-    duration: 0
-    updateType: 0
-    effectActive: 0
-    countDown: 0
-    index: 0
-  sineScaleY:
-    divisor: 0
-    magnitude: 0
-    duration: 0
-    updateType: 0
-    effectActive: 0
-    countDown: 0
-    index: 0
-  sineAngle:
-    divisor: 0
-    magnitude: 0
-    duration: 0
-    updateType: 0
-    effectActive: 0
-    countDown: 0
-    index: 0
-  spriteFrames: []
 --- !u!222 &276739570654697414
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -21728,11 +21364,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 223aa44526544b94680b18e16b125b03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mSprite: {fileID: 276739570792449517}
-  _speed: 0.3
-  sprite1: {fileID: 11400000, guid: 6dace748c3839c84a8132753e050e042, type: 2}
-  sprite2: {fileID: 11400000, guid: e99e5693726e37f42a16862c8d90e8ed, type: 2}
-  dropdown: {fileID: 276739570139503987}
 --- !u!224 &276739570686646508
 RectTransform:
   m_ObjectHideFlags: 0
@@ -22134,51 +21765,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b2901003b95b4a41a2ba273b1c268e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.1
-  isPaused: 0
-  sprytSineData: {fileID: 11400000, guid: 09ff0ffa63d6eaf40b94dc494636c80b, type: 2}
-  rect: {fileID: 0}
-  sineX:
-    divisor: 0
-    magnitude: 0
-    duration: 0
-    updateType: 0
-    effectActive: 0
-    countDown: 0
-    index: 0
-  sineY:
-    divisor: 0
-    magnitude: 0
-    duration: 0
-    updateType: 0
-    effectActive: 0
-    countDown: 0
-    index: 0
-  sineScaleX:
-    divisor: 0
-    magnitude: 0
-    duration: 0
-    updateType: 0
-    effectActive: 0
-    countDown: 0
-    index: 0
-  sineScaleY:
-    divisor: 0
-    magnitude: 0
-    duration: 0
-    updateType: 0
-    effectActive: 0
-    countDown: 0
-    index: 0
-  sineAngle:
-    divisor: 0
-    magnitude: 0
-    duration: 0
-    updateType: 0
-    effectActive: 0
-    countDown: 0
-    index: 0
-  index: {fileID: 11400000, guid: 6dace748c3839c84a8132753e050e042, type: 2}
 --- !u!222 &276739570792449518
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -22781,51 +22367,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72a84c681bd62fe44bd7b45a2baa0027, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
-  isPaused: 0
-  sprytSineData: {fileID: 11400000, guid: 3c9fdf95733d15746b1fa75291711153, type: 2}
-  rect: {fileID: 0}
-  sineX:
-    divisor: 0
-    magnitude: 0
-    duration: 0
-    updateType: 0
-    effectActive: 0
-    countDown: 0
-    index: 0
-  sineY:
-    divisor: 0
-    magnitude: 0
-    duration: 0
-    updateType: 0
-    effectActive: 0
-    countDown: 0
-    index: 0
-  sineScaleX:
-    divisor: 0
-    magnitude: 0
-    duration: 0
-    updateType: 0
-    effectActive: 0
-    countDown: 0
-    index: 0
-  sineScaleY:
-    divisor: 0
-    magnitude: 0
-    duration: 0
-    updateType: 0
-    effectActive: 0
-    countDown: 0
-    index: 0
-  sineAngle:
-    divisor: 0
-    magnitude: 0
-    duration: 0
-    updateType: 0
-    effectActive: 0
-    countDown: 0
-    index: 0
-  spriteFrames: []
 --- !u!222 &276739570937467620
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -23667,51 +23208,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72a84c681bd62fe44bd7b45a2baa0027, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
-  isPaused: 0
-  sprytSineData: {fileID: 11400000, guid: 3c9fdf95733d15746b1fa75291711153, type: 2}
-  rect: {fileID: 0}
-  sineX:
-    divisor: 0
-    magnitude: 0
-    duration: 0
-    updateType: 0
-    effectActive: 0
-    countDown: 0
-    index: 0
-  sineY:
-    divisor: 0
-    magnitude: 0
-    duration: 0
-    updateType: 0
-    effectActive: 0
-    countDown: 0
-    index: 0
-  sineScaleX:
-    divisor: 0
-    magnitude: 0
-    duration: 0
-    updateType: 0
-    effectActive: 0
-    countDown: 0
-    index: 0
-  sineScaleY:
-    divisor: 0
-    magnitude: 0
-    duration: 0
-    updateType: 0
-    effectActive: 0
-    countDown: 0
-    index: 0
-  sineAngle:
-    divisor: 0
-    magnitude: 0
-    duration: 0
-    updateType: 0
-    effectActive: 0
-    countDown: 0
-    index: 0
-  spriteFrames: []
 --- !u!222 &276739571203158503
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -34,7 +34,7 @@ public class DesignControl : MonoBehaviour
     }
     public InteractionMode currentMode = InteractionMode.Bucket;
 
-    private void Awake()
+    public void Initialize()
     {   
         designRequirement = GetComponent<DesignRequirement>();
         requirementUI = GetComponent<RequirementUI>();
@@ -67,8 +67,10 @@ public class DesignControl : MonoBehaviour
         for (int i = 0; i < canvasElements.Count; i++)
         {
             int n = i;//to prevent variable capturing
-            if(canvasElements[n].GetComponent<Button>()!=null)
+            if (canvasElements[n].GetComponent<Button>() != null)
+            {
                 canvasElements[n].GetComponent<Button>().onClick.AddListener(() => CanvasElementClicked(canvasElements[n]));//so that clicking on button triggers a callback
+            }
         }
 
     }

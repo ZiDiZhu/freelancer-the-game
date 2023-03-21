@@ -34,20 +34,20 @@ public class RequirementUI : MonoBehaviour
     public GameObject endScreen; //shows once Submitted.
     public TMP_Text resultText;
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
         Initialize();
     }
 
-    private void Initialize()
+    public void Initialize()
     {
 
         dR = GetComponent<DesignRequirement>();
         endScreen.SetActive(false);
         submitButton.interactable = true;
         submitButton.onClick.AddListener(() => UpdateEndScreen());
+        InitializeRequirementList();
         UpdateRequirement();
-
         clientProfile.sprite = dR.commissionObject.client.pfp;
     }
 
@@ -79,7 +79,7 @@ public class RequirementUI : MonoBehaviour
         }
 
         //no wrong colors
-        if (dR.wrongColors.Count == 0)
+        if (dR.wrongColors.Count == 0&&dR.bannedColors.Count!=0)
         {
             ChangeText(wrongColorsText, "OK", okTextFontSize, Color.green);
         }

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
 using Util;
+using ColorUtil;
 
 //Utility Script that checks if Design fits the requirement
 public class DesignRequirement : MonoBehaviour
@@ -35,7 +36,6 @@ public class DesignRequirement : MonoBehaviour
     public List<string> missingColors;
     public int missingNumberOfColors;
 
-
     public float score;
 
     //current design "combo"s
@@ -63,20 +63,19 @@ public class DesignRequirement : MonoBehaviour
 
     private void Awake()
     {
-        requirementUI = GetComponent<RequirementUI>();
+        
         designControl = GetComponent<DesignControl>();
-        colortool = new ColorTool();
+        designControl.Initialize();
+        canvasElements = designControl.canvasElements;
+        AssignRequirementsFromCommissionObject(commissionObject);
+
+        requirementUI = GetComponent<RequirementUI>();
     }
 
-    ColorTool colortool; //I/O for color info
+    
     // Start is called before the first frame update
     void Start()
     {
-        canvasElements = designControl.canvasElements;
-        AssignRequirementsFromCommissionObject(commissionObject);
-        
-        requirementUI.InitializeRequirementList();
-        requirementUI.UpdateRequirement();
 
     }
 
@@ -116,11 +115,11 @@ public class DesignRequirement : MonoBehaviour
         int temp = 0;
         foreach(string color in myColorsNames)
         {
-            if (colortool.ToneOf(color) == "warm")
+            if (ColorInfo.ToneOf(color) == "warm")
             {
                 temp++;
             }
-            else if (colortool.ToneOf(color) == "cool")
+            else if (ColorInfo.ToneOf(color) == "cool")
             {
                 temp--;
             }
@@ -169,12 +168,12 @@ public class DesignRequirement : MonoBehaviour
         }
 
         //check if analogous : 2-4 colors next to each other
-        analogous = CheckIfAnalogous(canvasElements);
+        analogous = ColorCombination.IsAnalogous(myColorsNamesDistinct);
         if (analogous)
         {
             colorScheme = ColorScheme.Analogous;
         }
-        complementary = CheckIfComplementary(canvasElements);
+        complementary = ColorCombination.IsComplementary(myColorsNamesDistinct);
         if (complementary)
         {
             colorScheme = ColorScheme.Complementary;
@@ -190,7 +189,7 @@ public class DesignRequirement : MonoBehaviour
             bool isSplit = false;
             foreach(string color in myColorsNamesDistinct)
             {
-                foreach (string c in colortool.AnalogousOf(colortool.ComplementaryOf(color)))
+                foreach (string c in ColorInfo.GetAnalogousHueString(ColorInfo.GetComplementaryHueString(color)))
                 {
                     isSplit = false;
                     if (myColorsNamesDistinct.Contains(c))
@@ -212,7 +211,7 @@ public class DesignRequirement : MonoBehaviour
             bool triad = true;
             foreach(string color in myColorsNamesDistinct)
             {
-                if (myColorsNamesDistinct.Contains(colortool.ComplementaryOf(color)))
+                if (myColorsNamesDistinct.Contains(ColorInfo.GetComplementaryHueString(color)))
                 {
                     triad = false;
                 }
@@ -229,7 +228,7 @@ public class DesignRequirement : MonoBehaviour
             bool triad = true;
             foreach (string color in myColorsNamesDistinct)
             {
-                if (!myColorsNamesDistinct.Contains(colortool.ComplementaryOf(color)))
+                if (!myColorsNamesDistinct.Contains(ColorInfo.GetComplementaryHueString(color)))
                 {
                     triad = false;
                 }
@@ -242,42 +241,20 @@ public class DesignRequirement : MonoBehaviour
 
     }
 
-    public bool CheckIfAnalogous(List<GameObject> gameObjects)
-    {
-        //List<string> myColors = GetDistinctColorsFromCanvasElems(gameObjects);
-        if (myColors.Count >= 2) //needs at least 2 
-        {
-            foreach (GameObject go in canvasElements)
-            {
-                List<string> a = colortool.AnalogousOf(go.GetComponent<Image>().color);
-                bool found = false;
-                foreach (string ac in a)
-                {
-                    if (myColorsNames.Contains(ac)&&ac!=colortool.ColorName(go.GetComponent<Image>().color))
-                    {
-                        found = true;
-                    }
-                }
-                if (!found)
-                {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
 
     public bool CheckIfComplementary(List<GameObject> gameObjects)
     {
-        if(myColorsNamesDistinct.Count == 2 || (myColorsNamesDistinct.Count == 3 && (myColorsNamesDistinct.Contains("black") || myColorsNamesDistinct.Contains("white") || myColorsNamesDistinct.Contains("gray"))))
+        if(myColorsNamesDistinct.Count == 2 )
         {
             foreach(GameObject go in gameObjects)
             {
                 //Analogous of complementary works too, for a more forgiving evaluation
-                List<string> simlarColors = colortool.AnalogousOf(go.GetComponent<Image>().color);
-                foreach(string color in simlarColors)
+                Color color = go.GetComponent<Image>().color;
+                string colorName = ColorInfo.GetHueString(color);
+                List<string> simlarColors = ColorInfo.GetAnalogousHueString(colorName);
+                foreach (string colorN in simlarColors)
                 {
-                    if (myColorsNamesDistinct.Contains(colortool.ComplementaryOf(color)))
+                    if (myColorsNamesDistinct.Contains(colorN))
                     {
                         return true;
                     }
@@ -288,8 +265,6 @@ public class DesignRequirement : MonoBehaviour
         return false;
     }
     
-
-    //to do: Map this to int 1-5 
     
     public float PercentageScore()
     {
@@ -324,7 +299,7 @@ public class DesignRequirement : MonoBehaviour
         List<string> colorNames = new List<string>();
         foreach(Color color in colors)
         {
-            colorNames.Add(colortool.ColorName(color));
+            colorNames.Add(ColorInfo.GetHueString(color));
         }
         return colorNames;
 

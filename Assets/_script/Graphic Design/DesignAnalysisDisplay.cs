@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
 using HSVPicker;
+using ColorUtil;
 
 //More accurately, currently selected color info displayer
 public class DesignAnalysisDisplay : MonoBehaviour
@@ -13,11 +14,9 @@ public class DesignAnalysisDisplay : MonoBehaviour
     public Color currentColor;
 
     public TMP_Text colorNameTMP, colorToneTMP,complementaryNameTMP, analogousText;
-    ColorTool colortool;
 
     private void Awake()
     {
-        colortool = new ColorTool();
         if (colorPicker == null)
         {
             colorPicker = FindObjectOfType<ColorPicker>();
@@ -30,10 +29,10 @@ public class DesignAnalysisDisplay : MonoBehaviour
     public void UpdateColorInfo()
     {
         Color currentColor = colorPicker.CurrentColor;
-        string currentColorName = colortool.ColorName(currentColor);
+        string currentColorName = ColorInfo.GetHueString(currentColor);
 
         //display color information
-        colorNameTMP.text = "Color: "+colortool.ColorName(currentColor);
+        colorNameTMP.text = "Color: "+ ColorInfo.GetHueString(currentColor);
         
         if(currentColorName == "black"|| currentColorName == "white"|| currentColorName == "gray")
         {
@@ -44,15 +43,15 @@ public class DesignAnalysisDisplay : MonoBehaviour
         {
 
             string analogous = "Analogous: ";
-            foreach (string str in colortool.AnalogousOf(currentColor))
+            foreach (string str in ColorInfo.GetAnalogousHueString(currentColorName))
             {
                 analogous += " " + str;
             }
             analogousText.text = analogous;
 
-            complementaryNameTMP.text = "Complementary: " + colortool.ComplementaryOf(currentColor);
+            complementaryNameTMP.text = "Complementary: " + ColorInfo.GetComplementaryHueString(currentColorName);
         }
-        colorToneTMP.text ="Tone: " + colortool.ToneOf(currentColorName);
+        colorToneTMP.text ="Tone: " + ColorInfo.ToneOf(currentColorName);
 
     }
 
