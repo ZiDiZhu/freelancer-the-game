@@ -178,7 +178,28 @@ namespace ColorUtil
     //Evaluate List of Colors
     public class ColorCombination
     {
-        //In: distinct hue strings; Out: if analogous
+
+
+
+        //check if list of distinct hues fits requirement of color schemes
+        public static bool IsMonoChromatic(List<string> colors)
+        {
+            if (colors.Count == 1)
+            {
+                return true;
+            }else if(colors.Count == 2)
+            {
+                if (colors.Contains("white") || colors.Contains("black"))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            return false;
+        }
         public static bool IsAnalogous(List<string> colors)
         {
             if(colors.Count >= 2)
@@ -206,7 +227,6 @@ namespace ColorUtil
                 return false;
             }
         }
-
         public static bool IsComplementary(List<string> colors)
         {
             if (colors.Count == 2)
@@ -227,6 +247,57 @@ namespace ColorUtil
                 return false;
             }
         }
+        public static bool IsSplitComplementary(List<string> colors)
+        {//"opposite analogous"
+            if (colors.Count == 3 & colors.Count == 3 || colors.Count == 4)
+            {
+                foreach(string color in colors)
+                {
+                    bool foundOppositeAnalogous = false;
+                    //if all color has the analogous of its complementary
+                    string oppositeColor = ColorInfo.GetComplementaryHueString(color);
+                    List<string> oppositeAnalogous = ColorInfo.GetAnalogousHueString(oppositeColor);
+                    foreach(string oa in oppositeAnalogous)
+                    {
+                        if (colors.Contains(oa))
+                        {
+                            foundOppositeAnalogous = true;
+                        }
+                    }
+                    if (!foundOppositeAnalogous)
+                    {
+                        return false; //if any color doesnt have its opposite-analogous
+                    }
+                }
+                return true; //if all colors has its opposite-analogous
+            }
+            else //not 3 or 4 hues
+            {
+                return false;
+            }
+        }
 
+        public static bool IsTriadic(List<string> colors)
+        {
+            if (colors.Count == 3)
+            {
+                
+                foreach(string color in colors)
+                {
+
+                    if (colors.Contains(ColorInfo.GetComplementaryHueString(color))
+                        ||colors.Contains(ColorInfo.GetAnalogousHueString(color)[0])
+                        ||colors.Contains(ColorInfo.GetAnalogousHueString(color)[1]))
+                    {
+                        return false;
+                    }
+                }
+                return true;//3 hues, none of them are complementary or analogous
+            }
+            else //other than 3 hues
+            {
+                return false;
+            }
+        }
     }
 }

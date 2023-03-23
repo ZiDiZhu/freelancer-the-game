@@ -8,6 +8,8 @@ using UnityEngine.UI;
 public class CanvasElement : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] DesignControl designControl;
+    public bool movable;//can be drag and dropped
+    public bool colorable;//can be colored
     // Start is called before the first frame update
     void Start()
     {

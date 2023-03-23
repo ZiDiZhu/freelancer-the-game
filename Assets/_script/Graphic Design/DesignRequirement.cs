@@ -152,21 +152,11 @@ public class DesignRequirement : MonoBehaviour
     {
         int nOfColors = myColorsNamesDistinct.Count;
 
-        //check if monochromatic
-        if(nOfColors == 1)
+        monochromatic = ColorCombination.IsMonoChromatic(myColorsNamesDistinct);
+        if (monochromatic)
         {
-            monochromatic = true;
-            colorScheme = ColorScheme.Monochromatic;
-        }else if (nOfColors == 2&&(myColorsNamesDistinct.Contains("black")||myColorsNamesDistinct.Contains("white")))
-        {
-            monochromatic = true;
             colorScheme = ColorScheme.Monochromatic;
         }
-        else
-        {
-            monochromatic = false;
-        }
-
         //check if analogous : 2-4 colors next to each other
         analogous = ColorCombination.IsAnalogous(myColorsNamesDistinct);
         if (analogous)
@@ -183,43 +173,17 @@ public class DesignRequirement : MonoBehaviour
             colorScheme = ColorScheme.None;
         }
 
-        //check if complementary
-        if(nOfColors >= 3 && !myColorsNamesDistinct.Contains("black") && !myColorsNamesDistinct.Contains("gray") && !myColorsNamesDistinct.Contains("white"))
+        bool isSplit = ColorCombination.IsSplitComplementary(myColorsNamesDistinct);
+        if (isSplit)
         {
-            bool isSplit = false;
-            foreach(string color in myColorsNamesDistinct)
-            {
-                foreach (string c in ColorInfo.GetAnalogousHueString(ColorInfo.GetComplementaryHueString(color)))
-                {
-                    isSplit = false;
-                    if (myColorsNamesDistinct.Contains(c))
-                    {
-                        isSplit = true;
-                    }
-                }
-            }
-            if (isSplit)
-            {
-                colorScheme = ColorScheme.SplitComplementary;
-
-            }
+            colorScheme = ColorScheme.SplitComplementary;
         }
 
-        //check if is triad
-        if (nOfColors == 3&&!myColorsNamesDistinct.Contains("black")&&!myColorsNamesDistinct.Contains("gray")&&!myColorsNamesDistinct.Contains("white"))
+
+        bool isTriadic = ColorCombination.IsTriadic(myColorsNamesDistinct);
+        if (isTriadic)
         {
-            bool triad = true;
-            foreach(string color in myColorsNamesDistinct)
-            {
-                if (myColorsNamesDistinct.Contains(ColorInfo.GetComplementaryHueString(color)))
-                {
-                    triad = false;
-                }
-            }
-            if (triad)
-            {
-                colorScheme = ColorScheme.Triadic;
-            }
+            colorScheme = ColorScheme.Triadic;
         }
 
         //check if is tetradic
@@ -241,29 +205,6 @@ public class DesignRequirement : MonoBehaviour
 
     }
 
-
-    public bool CheckIfComplementary(List<GameObject> gameObjects)
-    {
-        if(myColorsNamesDistinct.Count == 2 )
-        {
-            foreach(GameObject go in gameObjects)
-            {
-                //Analogous of complementary works too, for a more forgiving evaluation
-                Color color = go.GetComponent<Image>().color;
-                string colorName = ColorInfo.GetHueString(color);
-                List<string> simlarColors = ColorInfo.GetAnalogousHueString(colorName);
-                foreach (string colorN in simlarColors)
-                {
-                    if (myColorsNamesDistinct.Contains(colorN))
-                    {
-                        return true;
-                    }
-                }
-
-            }
-        }
-        return false;
-    }
     
     
     public float PercentageScore()
