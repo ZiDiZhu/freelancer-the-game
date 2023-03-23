@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine.EventSystems;
 using DG.Tweening;
 using Util;
+using ColorUtil;
 
 //displays UI from DesignRequirement, should attach to same GO
 public class RequirementUI : MonoBehaviour
@@ -54,7 +55,6 @@ public class RequirementUI : MonoBehaviour
     public void UpdateEndScreen()
     {
         endScreen.SetActive(true);
-        
         resultText.text = MathUtils.PecentageToOutOfFive(dR.PercentageScore())+" Stars!";
     }
 
@@ -168,7 +168,7 @@ public class RequirementUI : MonoBehaviour
         }
         else
         {
-            mustIncludeColorsUI.SetActive(false);
+            doNotIncludeColorsUI.SetActive(false);
         }
         if (dR.minNumberofColors == -1 && dR.maxNumberofColors == -1)
         {
@@ -199,9 +199,18 @@ public class RequirementUI : MonoBehaviour
             requiredColorSchemeText = requiredColorSchemeUI.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>();
             requiredColorSchemeUI.transform.GetChild(0).GetChild(0).GetComponent<TMP_Text>().text = "Required Color scheme: \n" + dR.requiredcolorScheme;
         }
+        else
+        {
+            requiredColorSchemeUI.SetActive(false);
+        }
 
     }
 
+
+    public void SetEvalTextToOk(TMP_Text tmpText)
+    {
+        ChangeText(tmpText, "OK", okTextFontSize, Color.green);
+    }
 
     private void ChangeText(TMP_Text tmpText,string txt,float size,Color bgColor)
     {
@@ -226,7 +235,6 @@ public class RequirementUI : MonoBehaviour
             
         }
 
-        
     }
 
 }

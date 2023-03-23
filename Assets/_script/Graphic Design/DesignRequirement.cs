@@ -69,14 +69,14 @@ public class DesignRequirement : MonoBehaviour
         canvasElements = designControl.canvasElements;
         AssignRequirementsFromCommissionObject(commissionObject);
 
-        requirementUI = GetComponent<RequirementUI>();
+        //requirementUI = GetComponent<RequirementUI>();
     }
 
     
     // Start is called before the first frame update
     void Start()
     {
-
+        requirementUI = GetComponent<RequirementUI>();
     }
 
     //assigns the commission object data in this gameobject

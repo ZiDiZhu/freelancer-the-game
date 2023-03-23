@@ -115,7 +115,6 @@ public class DesignControl : MonoBehaviour
         }
         if(requirementUI!=null)
             requirementUI.UpdateRequirement();
-        
     }
 
 
