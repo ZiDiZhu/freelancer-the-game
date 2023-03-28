@@ -14,7 +14,6 @@ public class DragAndDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
     {
         rectTransform = GetComponent<RectTransform>();
         parentRectTransform = transform.parent.GetComponent<RectTransform>();
-
         border_left = parentRectTransform.anchoredPosition.x;
         border_right = parentRectTransform.anchoredPosition.x + parentRectTransform.sizeDelta.x - rectTransform.sizeDelta.x;
         border_top = parentRectTransform.anchoredPosition.y+ parentRectTransform.sizeDelta.y/2-rectTransform.sizeDelta.y/2;
@@ -28,11 +27,31 @@ public class DragAndDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
 
     public void OnDrag(PointerEventData eventData)
     {
-        //Debug.Log("OnDrag");
+        MoveWithinParent(eventData);
+    }
+
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        bool readable = FindObjectOfType<DesignRequirement>().IsReadable(rectTransform.rect.width*0.5f,30f);
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        BringToFront();
+    }
+
+    public void BringToFront()
+    {
+        transform.SetAsLastSibling();//bring to front
+    }
+
+    //move object within parent object's rect transform
+    public void MoveWithinParent(PointerEventData eventData)
+    {
         if (rectTransform.anchoredPosition.x >= border_left
             && rectTransform.anchoredPosition.x <= border_right
             && rectTransform.anchoredPosition.y <= border_top
-            && rectTransform.anchoredPosition.y>= border_down) //within border of parents
+            && rectTransform.anchoredPosition.y >= border_down) //within border of parents
         {
             rectTransform.anchoredPosition += eventData.delta / transform.parent.localScale;
 
@@ -52,7 +71,7 @@ public class DragAndDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
             }
 
             //topmost
-            if(rectTransform.anchoredPosition.y> border_top)
+            if (rectTransform.anchoredPosition.y > border_top)
             {
                 rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, border_top);
             }
@@ -63,22 +82,6 @@ public class DragAndDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
                 rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, border_down);
             }
         }
-    }
-
-    public void OnEndDrag(PointerEventData eventData)
-    {
-        //Debug.Log("OnEndDrag");
-    }
-
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        //Debug.Log("OnPointerDown");
-        BringToFront();
-    }
-
-    public void BringToFront()
-    {
-        transform.SetAsLastSibling();//bring to front
     }
 
 }

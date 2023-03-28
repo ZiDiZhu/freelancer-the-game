@@ -15,4 +15,6 @@ public class CommissionObject : ScriptableObject
 
     public DesignRequirement.ColorScheme requiredColorScheme;
 
+    public bool requiresReadability; //will evaluate overlaps if true
+
 }

@@ -246,5 +246,42 @@ public class DesignRequirement : MonoBehaviour
 
     }
 
+    public bool IsReadable(float marginX,float marginY)//positive margin allows small overlaps, vice versa 
+    {
+        //all movable elements
+        List<RectTransform> rectTransforms = new List<RectTransform>();
+        foreach (GameObject elem in canvasElements)
+        {
+            if (elem.GetComponent<CanvasElement>().movable)//if element can be dragged
+            {
+                rectTransforms.Add(elem.GetComponent<RectTransform>());
+            }
+        }
+
+        for(int i=0; i < rectTransforms.Count-1; i++)
+        {
+            for(int j = i+1; j < rectTransforms.Count; j++)
+            {
+                RectTransform image1rt = rectTransforms[i];
+                RectTransform image2rt = rectTransforms[j];
+
+                Rect image1rect = image1rt.rect;
+                Rect image2rect = image2rt.rect;
+
+                if (image1rt.localPosition.x < image2rt.localPosition.x + image2rect.width-marginX &&
+                image1rt.localPosition.x + image1rect.width > image2rt.localPosition.x +marginX &&
+                image1rt.localPosition.y < image2rt.localPosition.y + image2rect.height -marginY &&
+                image1rt.localPosition.y + image1rect.height > image2rt.localPosition.y+marginY)
+                {
+                    //overlapped 
+                    Debug.Log("Unreadable");
+                    return false;
+                }
+            }
+        }
+        Debug.Log("Readable OK");
+        return true;
+    }
+
 
 }
