@@ -19,3 +19,4 @@ MonoBehaviour:
   minNumberColors: -1
   maxNumberColors: -1
   requiredColorScheme: 0
+  requiresReadability: 1

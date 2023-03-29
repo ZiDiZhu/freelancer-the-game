@@ -38,8 +38,11 @@ public class DesignRequirement : MonoBehaviour
 
     public float score;
 
-    //current design "combo"s
+    //current design color "combo"s
     private bool monochromatic, analogous, complementary, splitcomplementary;
+
+    //current design composition
+    public bool readable;
 
     public ColorScheme colorScheme,requiredcolorScheme;
     public enum ColorScheme
@@ -68,8 +71,6 @@ public class DesignRequirement : MonoBehaviour
         designControl.Initialize();
         canvasElements = designControl.canvasElements;
         AssignRequirementsFromCommissionObject(commissionObject);
-
-        //requirementUI = GetComponent<RequirementUI>();
     }
 
     
@@ -274,12 +275,14 @@ public class DesignRequirement : MonoBehaviour
                 image1rt.localPosition.y + image1rect.height > image2rt.localPosition.y+marginY)
                 {
                     //overlapped 
-                    Debug.Log("Unreadable");
+                    //Debug.Log("Unreadable");
+                    readable = false;
                     return false;
                 }
             }
         }
-        Debug.Log("Readable OK");
+        //Debug.Log("Readable OK");
+        readable = true;
         return true;
     }
 

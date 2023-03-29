@@ -3158,7 +3158,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 151.31, y: 181}
+  m_AnchoredPosition: {x: 54, y: -132.63}
   m_SizeDelta: {x: 249.98358, y: 152.63}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &774909772
@@ -3227,7 +3227,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 774909769}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -4209,7 +4209,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 900125516}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -5912,6 +5912,7 @@ MonoBehaviour:
   missingColors: []
   missingNumberOfColors: 0
   score: 0
+  readable: 0
   colorScheme: 0
   requiredcolorScheme: 0
 --- !u!114 &1128486523
@@ -5934,6 +5935,11 @@ MonoBehaviour:
   requiredColorSchemeUI: {fileID: 1044558163}
   SubmitButtonText: {fileID: 1771008721}
   submitButton: {fileID: 1680663195}
+  missingColorsText: {fileID: 0}
+  wrongColorsText: {fileID: 0}
+  numberDifferenceText: {fileID: 0}
+  requiredColorSchemeText: {fileID: 0}
+  readabilityText: {fileID: 915631598}
   colorSchemeText: {fileID: 509275604}
   toneText: {fileID: 92947798}
   okTextFontSize: 50
@@ -17529,7 +17535,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -253, y: 20}
+  m_AnchoredPosition: {x: -184, y: -66.485}
   m_SizeDelta: {x: 249.99, y: 152.63}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2144895057
@@ -17598,7 +17604,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2144895055}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 

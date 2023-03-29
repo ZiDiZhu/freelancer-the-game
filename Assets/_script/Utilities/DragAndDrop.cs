@@ -7,6 +7,7 @@ public class DragAndDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
 {
     [SerializeField] private Canvas canvas;
 
+    private DesignRequirement dR;
 
     private RectTransform rectTransform,parentRectTransform;
     [SerializeField] private float border_left, border_right, border_top, border_down;
@@ -32,7 +33,13 @@ public class DragAndDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        bool readable = FindObjectOfType<DesignRequirement>().IsReadable(rectTransform.rect.width*0.5f,30f);
+        if (FindObjectOfType<DesignRequirement>().commissionObject.requiresReadability)
+        {
+            bool readable = FindObjectOfType<DesignRequirement>().IsReadable(rectTransform.rect.width * 0.5f, 30f);
+            FindObjectOfType<RequirementUI>().Readability(readable);
+        }
+        
+        
     }
 
     public void OnPointerDown(PointerEventData eventData)

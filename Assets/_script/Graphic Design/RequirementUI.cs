@@ -13,7 +13,6 @@ public class RequirementUI : MonoBehaviour
 {
     public Image clientProfile,playerProfile;
 
-
     //Other Scripts attached to this gameObject
     private DesignRequirement dR; //must be on same gameObject
 
@@ -24,8 +23,7 @@ public class RequirementUI : MonoBehaviour
     public TMP_Text SubmitButtonText;
     public Button submitButton;
 
-    private TMP_Text missingColorsText, wrongColorsText, numberDifferenceText, requiredColorSchemeText;
-
+    public TMP_Text missingColorsText, wrongColorsText, numberDifferenceText, requiredColorSchemeText, readabilityText;
 
     public TMP_Text colorSchemeText,toneText;
 
@@ -34,6 +32,7 @@ public class RequirementUI : MonoBehaviour
 
     public GameObject endScreen; //shows once Submitted.
     public TMP_Text resultText;
+    public Slider starsSlider;
     // Start is called before the first frame update
     void Start()
     {
@@ -55,6 +54,12 @@ public class RequirementUI : MonoBehaviour
     public void UpdateEndScreen()
     {
         endScreen.SetActive(true);
+        int starsScore = MathUtils.PecentageToOutOfFive(dR.PercentageScore());
+        if (starsScore == 5)
+        {
+            
+        }
+        starsSlider.value = (0.2f*(float)starsScore);
         resultText.text = MathUtils.PecentageToOutOfFive(dR.PercentageScore())+" Stars!";
     }
 
@@ -204,6 +209,18 @@ public class RequirementUI : MonoBehaviour
             requiredColorSchemeUI.SetActive(false);
         }
 
+    }
+
+    public void Readability(bool readable)
+    {
+        if (readable)
+        {
+            SetEvalTextToOk(readabilityText);
+        }
+        else
+        {
+            ChangeText(readabilityText, "Visuals are cluttered", normalTextFontSize, Color.white);
+        }
     }
 
 
