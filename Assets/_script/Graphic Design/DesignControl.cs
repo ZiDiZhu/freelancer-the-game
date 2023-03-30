@@ -100,10 +100,16 @@ public class DesignControl : MonoBehaviour
     void DragBtnClicked()
     {
         currentMode = InteractionMode.Drag;
+
+        bucketBtn.GetComponent<Image>().color = Color.white;
+        dragBtn.GetComponent<Image>().color = Color.yellow;
     }
     void BucketBtnClicked()
     {
         currentMode = InteractionMode.Bucket;
+
+        bucketBtn.GetComponent<Image>().color = Color.yellow;
+        dragBtn.GetComponent<Image>().color = Color.white;
     }
 
     void CanvasElementClicked(GameObject elem)

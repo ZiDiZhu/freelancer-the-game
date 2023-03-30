@@ -178,9 +178,6 @@ namespace ColorUtil
     //Evaluate List of Colors
     public class ColorCombination
     {
-
-
-
         //check if list of distinct hues fits requirement of color schemes
         public static bool IsMonoChromatic(List<string> colors)
         {

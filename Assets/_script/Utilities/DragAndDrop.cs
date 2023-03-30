@@ -5,12 +5,14 @@ using UnityEngine.EventSystems;
 
 public class DragAndDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler
 {
-    [SerializeField] private Canvas canvas;
+    public bool withinParentalBorder = false;//if true, confined to parent's recttransform
+
+    private Canvas canvas;
 
     private DesignRequirement dR;
 
     private RectTransform rectTransform,parentRectTransform;
-    [SerializeField] private float border_left, border_right, border_top, border_down;
+    private float border_left, border_right, border_top, border_down;
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
