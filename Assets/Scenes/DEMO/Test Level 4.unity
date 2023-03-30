@@ -3227,7 +3227,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 774909769}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -4209,7 +4209,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 900125516}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -5929,6 +5929,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clientProfile: {fileID: 1830332829}
   playerProfile: {fileID: 0}
+  dR: {fileID: 0}
   mustIncludeColorsUI: {fileID: 725589751}
   doNotIncludeColorsUI: {fileID: 1141498755}
   numberOfColorsUI: {fileID: 1912954221}
@@ -5946,6 +5947,7 @@ MonoBehaviour:
   normalTextFontSize: 22
   endScreen: {fileID: 1938368812}
   resultText: {fileID: 1056666199}
+  starsSlider: {fileID: 0}
 --- !u!1 &1141498755
 GameObject:
   m_ObjectHideFlags: 0
@@ -8918,7 +8920,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1702700647}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -17604,7 +17606,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2144895055}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 

@@ -66,8 +66,11 @@ public class DesignRequirement : MonoBehaviour
 
     private void Awake()
     {
+        if (designControl == null)
+        {
+            designControl = GetComponent<DesignControl>();
+        }
         
-        designControl = GetComponent<DesignControl>();
         designControl.Initialize();
         canvasElements = designControl.canvasElements;
         AssignRequirementsFromCommissionObject(commissionObject);

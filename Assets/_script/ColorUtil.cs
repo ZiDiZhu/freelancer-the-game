@@ -202,12 +202,18 @@ namespace ColorUtil
         }
         public static bool IsAnalogous(List<string> colors)
         {
+            //reject grayscale
+            if (colors.Contains("black") || colors.Contains("white") || colors.Contains("gray"))
+            {
+                return false;
+            }
             if(colors.Count >= 2)
             {
                 foreach(string color in colors)
                 {
                     bool found = false;
                     List<string> analogousOfColor = ColorInfo.GetAnalogousHueString(color);
+                    
                     foreach(string item in analogousOfColor)
                     {
                         if (colors.Contains(item)) //if any analogous that is not the color itself can be found 
@@ -229,6 +235,11 @@ namespace ColorUtil
         }
         public static bool IsComplementary(List<string> colors)
         {
+            //reject grayscale
+            if (colors.Contains("black") || colors.Contains("white") || colors.Contains("gray"))
+            {
+                return false;
+            }
             if (colors.Count == 2)
             {
                 string exactComplementary = ColorInfo.GetComplementaryHueString(colors[0]);

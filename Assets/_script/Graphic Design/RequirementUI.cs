@@ -14,7 +14,7 @@ public class RequirementUI : MonoBehaviour
     public Image clientProfile,playerProfile;
 
     //Other Scripts attached to this gameObject
-    private DesignRequirement dR; //must be on same gameObject
+    [SerializeField]private DesignRequirement dR; //must be on same gameObject
 
     public GameObject mustIncludeColorsUI;
     public GameObject doNotIncludeColorsUI;
@@ -41,14 +41,21 @@ public class RequirementUI : MonoBehaviour
 
     public void Initialize()
     {
-
-        dR = GetComponent<DesignRequirement>();
+        if (dR == null)
+        {
+            dR = GetComponent<DesignRequirement>();
+        }
+        
         endScreen.SetActive(false);
         submitButton.interactable = true;
         submitButton.onClick.AddListener(() => UpdateEndScreen());
         InitializeRequirementList();
         UpdateRequirement();
-        clientProfile.sprite = dR.commissionObject.client.pfp;
+        //if (clientProfile != null)
+        //{
+        //    clientProfile.sprite = dR.commissionObject.client.pfp;
+        //}
+        
     }
 
     public void UpdateEndScreen()
@@ -136,12 +143,10 @@ public class RequirementUI : MonoBehaviour
             }
         }
         
-        
     }
 
     public void InitializeRequirementList()
     {
-        
         // "Must include"
         if (dR.requiredColors.Count != 0) //has contain color requirement
         {
@@ -198,7 +203,7 @@ public class RequirementUI : MonoBehaviour
             numberDifferenceText = numberOfColorsUI.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>();
         }
 
-        if (dR.requiredcolorScheme != DesignRequirement.ColorScheme.None)
+        if ((dR.requiredcolorScheme != DesignRequirement.ColorScheme.None)&&requiredColorSchemeUI!=null)
         {
             requiredColorSchemeUI.SetActive(true);
             requiredColorSchemeText = requiredColorSchemeUI.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>();
@@ -206,7 +211,10 @@ public class RequirementUI : MonoBehaviour
         }
         else
         {
-            requiredColorSchemeUI.SetActive(false);
+            if(requiredColorSchemeText != null)
+            {
+                requiredColorSchemeUI.SetActive(false);
+            }
         }
 
     }
