@@ -45,6 +45,9 @@ public class DesignRequirement : MonoBehaviour
     public bool readable;
 
     public ColorScheme colorScheme,requiredcolorScheme;
+
+    public List<GameObject> sourcePics;
+    public List<Vector2> anchoredPos;
     public enum ColorScheme
     {
         None,
@@ -81,6 +84,11 @@ public class DesignRequirement : MonoBehaviour
     void Start()
     {
         requirementUI = GetComponent<RequirementUI>();
+
+        foreach(GameObject elem in sourcePics)
+        {
+            anchoredPos.Add(elem.GetComponent<RectTransform>().anchoredPosition);
+        }
     }
 
     //assigns the commission object data in this gameobject
@@ -287,6 +295,27 @@ public class DesignRequirement : MonoBehaviour
         //Debug.Log("Readable OK");
         readable = true;
         return true;
+    }
+
+    //see if all needed pictures are dragged in framed
+    //returns missing number
+    public int allElementsInFrame()
+    {
+        List<GameObject> movablesInCanvas = new List<GameObject>();
+
+        for (int i=0; i < sourcePics.Count; i++)
+        {
+            if (sourcePics[i].GetComponent<DragAndDrop>().withinParentalBorder)
+            {
+                movablesInCanvas.Add(sourcePics[i]);
+            }
+            else
+            {
+                sourcePics[i].GetComponent<RectTransform>().anchoredPosition = anchoredPos[i];
+            }
+        }
+
+        return sourcePics.Count - movablesInCanvas.Count;
     }
 
 

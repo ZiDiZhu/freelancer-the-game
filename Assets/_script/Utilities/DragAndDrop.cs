@@ -17,10 +17,16 @@ public class DragAndDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
     {
         rectTransform = GetComponent<RectTransform>();
         parentRectTransform = transform.parent.GetComponent<RectTransform>();
-        border_left = parentRectTransform.anchoredPosition.x;
-        border_right = parentRectTransform.anchoredPosition.x + parentRectTransform.sizeDelta.x - rectTransform.sizeDelta.x;
+        border_left = parentRectTransform.anchoredPosition.x - rectTransform.sizeDelta.x/2; ;
+        border_right = parentRectTransform.anchoredPosition.x + parentRectTransform.sizeDelta.x;
         border_top = parentRectTransform.anchoredPosition.y+ parentRectTransform.sizeDelta.y/2-rectTransform.sizeDelta.y/2;
         border_down = parentRectTransform.anchoredPosition.y - parentRectTransform.sizeDelta.y / 2 + rectTransform.sizeDelta.y/2;
+
+        if (canvas == null)
+        {
+            canvas = FindObjectOfType<Canvas>();
+        }
+        
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -37,8 +43,23 @@ public class DragAndDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
     {
         if (FindObjectOfType<DesignRequirement>().commissionObject.requiresReadability)
         {
+
+            if (rectTransform.anchoredPosition.x >= border_left
+            && rectTransform.anchoredPosition.x <= border_right
+            && rectTransform.anchoredPosition.y <= border_top
+            && rectTransform.anchoredPosition.y >= border_down) //within border of parents
+            {
+                withinParentalBorder = true;
+
+            }
+            else //outside of border
+            {
+                withinParentalBorder = false;
+            }
+
             bool readable = FindObjectOfType<DesignRequirement>().IsReadable(rectTransform.rect.width * 0.5f, 30f);
             FindObjectOfType<RequirementUI>().Readability(readable);
+            FindObjectOfType<RequirementUI>().CheckRequiredElementsInFrame();
         }
         
         
@@ -57,40 +78,31 @@ public class DragAndDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
     //move object within parent object's rect transform
     public void MoveWithinParent(PointerEventData eventData)
     {
-        if (rectTransform.anchoredPosition.x >= border_left
-            && rectTransform.anchoredPosition.x <= border_right
-            && rectTransform.anchoredPosition.y <= border_top
-            && rectTransform.anchoredPosition.y >= border_down) //within border of parents
-        {
-            rectTransform.anchoredPosition += eventData.delta / transform.parent.localScale;
+        
 
+        rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
+    }
+     private void SnapToBorder()
+    {
+        //leftmost
+        if (rectTransform.anchoredPosition.x < border_left)
+        {
+            rectTransform.anchoredPosition = new Vector2(border_left, rectTransform.anchoredPosition.y);
         }
-        else //outside of border
+        //rightmost
+        if (rectTransform.anchoredPosition.x > border_right)
         {
-            //leftmost
-            if (rectTransform.anchoredPosition.x < border_left)
-            {
-                rectTransform.anchoredPosition = new Vector2(border_left, rectTransform.anchoredPosition.y);
-            }
-
-            //rightmost
-            if (rectTransform.anchoredPosition.x > border_right)
-            {
-                rectTransform.anchoredPosition = new Vector2(border_right, rectTransform.anchoredPosition.y);
-            }
-
-            //topmost
-            if (rectTransform.anchoredPosition.y > border_top)
-            {
-                rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, border_top);
-            }
-
-            //downmost
-            if (rectTransform.anchoredPosition.y < border_down)
-            {
-                rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, border_down);
-            }
+            rectTransform.anchoredPosition = new Vector2(border_right, rectTransform.anchoredPosition.y);
+        }
+        //topmost
+        if (rectTransform.anchoredPosition.y > border_top)
+        {
+            rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, border_top);
+        }
+        //downmost
+        if (rectTransform.anchoredPosition.y < border_down)
+        {
+            rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, border_down);
         }
     }
-
 }

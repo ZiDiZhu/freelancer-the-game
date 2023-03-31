@@ -24,7 +24,7 @@ public class RequirementUI : MonoBehaviour
     public Button submitButton;
 
     public TMP_Text missingColorsText, wrongColorsText, numberDifferenceText, requiredColorSchemeText, readabilityText;
-
+    public TMP_Text requiredPicsInFrameText;
     public TMP_Text colorSchemeText,toneText;
 
     public float okTextFontSize = 50f;
@@ -229,6 +229,20 @@ public class RequirementUI : MonoBehaviour
         {
             ChangeText(readabilityText, "Visuals are cluttered", normalTextFontSize, Color.white);
         }
+    }
+
+    public void CheckRequiredElementsInFrame()
+    {
+        int missing = dR.allElementsInFrame();
+        if (missing == 0)
+        {
+            ChangeText(requiredPicsInFrameText, "OK", okTextFontSize, Color.green);
+        }
+        else
+        {
+            ChangeText(requiredPicsInFrameText, "Missing"+ missing + "Photos", normalTextFontSize, Color.white);
+        }
+        
     }
 
 

@@ -97,7 +97,7 @@ public class DesignControl : MonoBehaviour
 
 
     //calls when drag (move) button gets clicked
-    void DragBtnClicked()
+    public void DragBtnClicked()
     {
         currentMode = InteractionMode.Drag;
         colorPicker.gameObject.SetActive(false);
@@ -114,11 +114,12 @@ public class DesignControl : MonoBehaviour
 
     void CanvasElementClicked(GameObject elem)
     {
-        if(currentMode == InteractionMode.Bucket)
+        if(currentMode == InteractionMode.Bucket && elem.GetComponent<CanvasElement>().colorable)
         {
             //set clicked element color to the colorpicker color
             elem.GetComponent<Image>().color = colorPicker.CurrentColor;
         }
+
         if(requirementUI!=null)
             requirementUI.UpdateRequirement();
     }
