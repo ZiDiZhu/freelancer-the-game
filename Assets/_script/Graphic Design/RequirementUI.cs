@@ -139,7 +139,7 @@ public class RequirementUI : MonoBehaviour
             }
             else
             {
-                ChangeText(requiredColorSchemeText, "Current Color Scheme: " + dR.colorScheme.ToString(), normalTextFontSize, Color.white);
+                ChangeText(requiredColorSchemeText, "Currently: " + dR.colorScheme.ToString(), normalTextFontSize, Color.white);
             }
         }
         
@@ -207,7 +207,7 @@ public class RequirementUI : MonoBehaviour
         {
             requiredColorSchemeUI.SetActive(true);
             requiredColorSchemeText = requiredColorSchemeUI.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>();
-            requiredColorSchemeUI.transform.GetChild(0).GetChild(0).GetComponent<TMP_Text>().text = "Required Color scheme: \n" + dR.requiredcolorScheme;
+            requiredColorSchemeUI.transform.GetChild(0).GetChild(0).GetComponent<TMP_Text>().text = "Recommended Color scheme: \n" + dR.requiredcolorScheme;
         }
         else
         {
@@ -240,7 +240,7 @@ public class RequirementUI : MonoBehaviour
         }
         else
         {
-            ChangeText(requiredPicsInFrameText, "Missing"+ missing + "Photos", normalTextFontSize, Color.white);
+            ChangeText(requiredPicsInFrameText, "Missing "+ missing + " Things", normalTextFontSize, Color.white);
         }
         
     }

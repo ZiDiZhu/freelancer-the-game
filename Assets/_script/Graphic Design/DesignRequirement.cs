@@ -112,7 +112,16 @@ public class DesignRequirement : MonoBehaviour
 
     public void EvaluateColorRequirements()
     {
-        myColors = GetColorsFromCanvas(canvasElements);
+        List<GameObject> coloredElems = new List<GameObject>();
+        foreach(GameObject elem in canvasElements)
+        {
+            if (elem.GetComponent<CanvasElement>().colorable)
+            {
+                coloredElems.Add(elem);
+            }
+        }
+
+        myColors = GetColorsFromCanvas(coloredElems);
         myColorsNames = GetStringsFromColors(myColors);
         myColorsNamesDistinct = ListUtils.GetDistinctElems(myColorsNames);
         missingColors = ListUtils.GetMissingElements(requiredColors, myColorsNamesDistinct);

@@ -57,7 +57,7 @@ public class DragAndDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
                 withinParentalBorder = false;
             }
 
-            bool readable = FindObjectOfType<DesignRequirement>().IsReadable(rectTransform.rect.width * 0.5f, 30f);
+            bool readable = FindObjectOfType<DesignRequirement>().IsReadable(rectTransform.rect.width * 0.3f, 80f);
             FindObjectOfType<RequirementUI>().Readability(readable);
             FindObjectOfType<RequirementUI>().CheckRequiredElementsInFrame();
         }
