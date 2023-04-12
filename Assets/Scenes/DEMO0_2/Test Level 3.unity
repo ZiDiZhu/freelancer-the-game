@@ -974,7 +974,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Clyppi: I want you to design the album cover for my next synth-pop-electro-swing
     album, "CLYPTOMANIAC"! I want a design that''s a quadrant, each quadrant has
-    a different, vibrant color - a Tetradic color scheme would be best! Don''t use
+    a different, vibrant color - a tetradic color scheme would be best! Don''t use
     primary colors, they are too basic for me! - wait actually - red is ok!
 
 '
@@ -3575,7 +3575,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   designControl: {fileID: 0}
   movable: 0
-  colorable: 0
+  colorable: 1
 --- !u!114 &900125519
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4987,6 +4987,8 @@ MonoBehaviour:
   readable: 0
   colorScheme: 0
   requiredcolorScheme: 0
+  sourcePics: []
+  anchoredPos: []
 --- !u!114 &1128486523
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5013,6 +5015,7 @@ MonoBehaviour:
   numberDifferenceText: {fileID: 0}
   requiredColorSchemeText: {fileID: 0}
   readabilityText: {fileID: 0}
+  requiredPicsInFrameText: {fileID: 0}
   colorSchemeText: {fileID: 509275604}
   toneText: {fileID: 92947798}
   okTextFontSize: 50
@@ -5742,7 +5745,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   designControl: {fileID: 0}
   movable: 0
-  colorable: 0
+  colorable: 1
 --- !u!1 &1360174891
 GameObject:
   m_ObjectHideFlags: 0
@@ -7766,7 +7769,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   designControl: {fileID: 0}
   movable: 0
-  colorable: 0
+  colorable: 1
 --- !u!114 &1702700650
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15399,7 +15402,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Test Level 3
+          m_StringArgument: New Test Level 1
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &2027916918
@@ -15964,7 +15967,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   designControl: {fileID: 0}
   movable: 0
-  colorable: 0
+  colorable: 1
 --- !u!114 &2144895058
 MonoBehaviour:
   m_ObjectHideFlags: 0

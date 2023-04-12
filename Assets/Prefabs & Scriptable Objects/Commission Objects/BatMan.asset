@@ -12,19 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e40d7b22c572e3e4cb5280e65b406c69, type: 3}
   m_Name: BatMan
   m_EditorClassIdentifier: 
-  title: Bat Man Movie Poster
-  description: Poster for my horror movie about a bat-swinging maniac
   client: {fileID: 11400000, guid: d51e629412a80ce4d8c4587bf1c57040, type: 2}
   pay: 90
-  openingDialogues:
-  - Eyyo
-  - I heard you're the best graphic designer you can hire for 90$
-  - I need you to design a poster for my movie.
-  - 'I have the pictures ready! '
-  - I want you to make the most dramatic poster!
-  fulfilled: 00000000
-  requirements:
-  - Dramatic Picture
-  - Dramatic Colors (Red and black)
-  - Eye Catching Title
-  - Dramatic font
+  mustIncludeColors: []
+  doNotIncludeColors: []
+  minNumberColors: -1
+  maxNumberColors: -1
+  requiredColorScheme: 0
+  requiresReadability: 0

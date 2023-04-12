@@ -20,4 +20,5 @@ MonoBehaviour:
   - yellow
   minNumberColors: 4
   maxNumberColors: 4
-  requiredColorScheme: 6
+  requiredColorScheme: 5
+  requiresReadability: 0
