@@ -51,10 +51,6 @@ public class RequirementUI : MonoBehaviour
         submitButton.onClick.AddListener(() => UpdateEndScreen());
         InitializeRequirementList();
         UpdateRequirement();
-        //if (clientProfile != null)
-        //{
-        //    clientProfile.sprite = dR.commissionObject.client.pfp;
-        //}
         
     }
 

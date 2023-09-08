@@ -5,7 +5,6 @@ using Util;
 
 namespace ColorUtil
 {
-    //Evaluate Single color
     public class ColorInfo
     {
         //return h,s,v mapped to a float 0-1
@@ -33,7 +32,6 @@ namespace ColorUtil
         public static string GetHueString(Color color)
         {
             float[] rgb = { color.r, color.g, color.b };
-
 
             float H, S, V;//hue, saturation,color
             Color.RGBToHSV(color, out H, out S, out V);
@@ -308,4 +306,6 @@ namespace ColorUtil
             }
         }
     }
+
+
 }
